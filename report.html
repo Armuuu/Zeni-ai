@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report – Zeni</title>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #141414;
+      --surface: #1e1e1e;
+      --surface2: #272727;
+      --surface3: #323232;
+      --border: rgba(255,255,255,0.08);
+      --accent: #EF7722;
+      --accent-dim: rgba(239,119,34,0.12);
+      --accent-glow: rgba(239,119,34,0.25);
+      --text: #f0f0f0;
+      --text-muted: #888;
+      --text-dim: #505050;
+      --header-h: 54px;
+      --danger: #e05555;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      height: var(--header-h);
+      width: 100%;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .back {
+      background: none;
+      border: none;
+      border-radius: 8px;
+      height: 36px;
+      width: 36px;
+      font-size: 20px;
+      margin-top: 6px;
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+
+    .back:hover { background: var(--surface3); }
+
+    header h1 {
+      font-size: 18px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 600;
+      margin-left: 12px;
+    }
+
+    /* ── PAGE BODY ── */
+    .page {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 28px 18px 60px;
+    }
+
+    /* ── INTRO CARD ── */
+    .intro-card {
+      background: var(--accent-dim);
+      border: 1px solid rgba(239,119,34,0.2);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 28px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .intro-card .ic-icon {
+      font-size: 20px;
+      margin-top: 1px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .intro-card p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #c8c8c8;
+    }
+
+    .intro-card p strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ── FORM GROUPS ── */
+    .form-group { margin-bottom: 22px; }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .form-group label span.required {
+      color: var(--accent);
+      margin-left: 2px;
+    }
+
+    textarea, input[type="text"], input[type="email"] {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14.5px;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+
+    textarea::placeholder, input::placeholder { color: var(--text-dim); }
+    textarea:focus, input:focus { border-color: rgba(239,119,34,0.5); }
+
+    #issueText { min-height: 140px; }
+    #emailInput { min-height: unset; }
+
+    /* ── IMAGE UPLOAD ── */
+    .upload-zone {
+      background: var(--surface);
+      border: 1.5px dashed rgba(255,255,255,0.13);
+      border-radius: 14px;
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+
+    .upload-zone:hover {
+      border-color: rgba(239,119,34,0.4);
+      background: rgba(239,119,34,0.04);
+    }
+
+    .upload-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .upload-zone .uz-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 20px;
+      color: var(--text-muted);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .upload-zone:hover .uz-icon {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-color: rgba(239,119,34,0.3);
+    }
+
+    .upload-zone .uz-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .upload-zone .uz-sub {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* ── IMAGE PREVIEWS ── */
+    #preview-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .preview-wrap {
+      position: relative;
+      width: 76px;
+      height: 76px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+      animation: fadeIn 0.25s ease;
+    }
+
+    .preview-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .preview-wrap .remove-btn {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.75);
+      border: none;
+      color: #fff;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .preview-wrap:hover .remove-btn { opacity: 1; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.85); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 26px 0;
+    }
+
+    /* ── SUBMIT BUTTON ── */
+    .submit-btn {
+      width: 100%;
+      padding: 15px 20px;
+      background: var(--accent);
+      border: none;
+      border-radius: 13px;
+      color: #fff;
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:active:not(:disabled) { transform: scale(0.98); }
+
+    .submit-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    /* ── SPINNER ── */
+    .spinner {
+      width: 17px;
+      height: 17px;
+      border: 2.5px solid rgba(255,255,255,0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+      display: none;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── UPLOAD PROGRESS BAR ── */
+    .upload-progress {
+      display: none;
+      margin-top: 10px;
+      background: var(--surface2);
+      border-radius: 99px;
+      height: 4px;
+      overflow: hidden;
+    }
+
+    .upload-progress-bar {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 99px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .upload-status-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      text-align: center;
+      display: none;
+    }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 11px 22px;
+      font-size: 14px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      white-space: nowrap;
+      z-index: 999;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    #toast.error   { border-color: rgba(224,85,85,0.4); }
+    #toast.success { border-color: rgba(72,199,142,0.4); }
+
+    /* ── THANK YOU OVERLAY ── */
+    #thankyou-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+      padding: 30px;
+      text-align: center;
+    }
+
+    #thankyou-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .ty-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 2px solid rgba(239,119,34,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 22px;
+      animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.4); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    #thankyou-overlay h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    #thankyou-overlay p {
+      color: var(--text-muted);
+      font-size: 14.5px;
+      line-height: 1.6;
+      max-width: 300px;
+      margin-bottom: 30px;
+    }
+
+    .ty-btn {
+      padding: 13px 32px;
+      background: var(--accent);
+      border: none;
+      border-radius: 50px;
+      color: #fff;
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .ty-btn:hover { opacity: 0.9; transform: scale(0.98); }
+
+    /* ── CHAR COUNT ── */
+    .char-count {
+      text-align: right;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 6px;
+      transition: color 0.2s;
+    }
+
+    .char-count.warn { color: var(--danger); }
+
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <button type="button" class="back" onclick="goBack()">
+    <i class="fi fi-rr-arrow-left"></i>
+  </button>
+  <h1>Report an issue</h1>
+</header>
+
+<!-- ── MAIN PAGE ── -->
+<div class="page">
+
+  <!-- Intro -->
+  <div class="intro-card">
+    <span class="ic-icon"><i class="fi fi-rr-bug-report"></i></span>
+    <p>
+      Found a bug or something not working right? Tell us about it and we'll fix it as soon as possible making <strong>Zeni</strong> better for everyone. Fill the form below and hit the submit button!
+    </p>
+  </div>
+
+  <form id="reportForm" novalidate>
+
+    <!-- Issue Description -->
+    <div class="form-group">
+      <label>Describe the Issue<span class="required">*</span></label>
+      <textarea
+        id="issueText"
+        placeholder="What went wrong? What were you doing when it happened? Be as detailed as possible..."
+        maxlength="2000"
+        oninput="updateCharCount()"
+      ></textarea>
+      <div class="char-count" id="charCount">0 / 2000</div>
+    </div>
+
+    <!-- Screenshot Upload -->
+    <div class="form-group">
+      <label>Attach Screenshots <span style="color:var(--text-dim);font-size:11px;text-transform:none;letter-spacing:0;">(optional)</span></label>
+      <div class="upload-zone" id="uploadZone">
+        <input
+          type="file"
+          id="screenshotInput"
+          accept="image/*"
+          multiple
+          onchange="handleImageUpload(event)"
+        >
+        <div class="uz-icon"><i class="fi fi-rr-add-image"></i></div>
+        <div class="uz-title">Click to add screenshots</div>
+        <div class="uz-sub">PNG, JPG, WEBP &nbsp;·&nbsp; Max 3 images</div>
+      </div>
+      <div id="preview-container"></div>
+      <!-- Progress bar — submit ke waqt dikhega -->
+      <div class="upload-progress" id="uploadProgress">
+        <div class="upload-progress-bar" id="uploadProgressBar"></div>
+      </div>
+      <div class="upload-status-text" id="uploadStatusText"></div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Contact Back -->
+    <div class="form-group">
+      <label>Can we contact you? <span style="color:var(--text-dim);font-size:11px;text-transform:none;letter-spacing:0;">(optional)</span></label>
+      <input
+        type="email"
+        id="emailInput"
+        placeholder="your@email.com - we'll reply once it's fixed"
+      >
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="submit-btn" id="submitBtn">
+      <span id="btnText">Submit Report</span>
+      <span class="spinner" id="spinner"></span>
+      <i class="fi fi-rr-check" id="sendIcon"></i>
+    </button>
+
+  </form>
+</div>
+
+<!-- ── THANK YOU OVERLAY ── -->
+<div id="thankyou-overlay">
+  <div class="ty-icon">🙌</div>
+  <h2>Thank you for your feedback!</h2>
+  <p>We've received your report and will look into it. If you left your email, we'll update you once it's resolved.</p>
+  <button class="ty-btn" onclick="goBack()">Go Back to Zeni</button>
+</div>
+
+<!-- ── TOAST ── -->
+<div id="toast"></div>
+
+<!-- ── EmailJS ── -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+
+  /* ════════════════════════════════════════════
+     ⚙️  APNI KEYS YAHAN DAALO
+     ════════════════════════════════════════════ */
+  const EMAILJS_PUBLIC_KEY  = "gKIL20Rd04eWUOy2U";
+  const EMAILJS_SERVICE_ID  = "service_m007aqs";
+  const EMAILJS_TEMPLATE_ID = "template_d6fhrab";
+  const IMGBB_API_KEY       = "28d7c579cff9014da372215bfdb6f93a"; // ← imgbb.com se lo
+
+  /* ════════════════════════════════════════════
+     ⚙️  BACK URL
+     ════════════════════════════════════════════ */
+  const BACK_URL = "index.html";
+
+  /* ─── Init EmailJS ─── */
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  /* ─── Back button ─── */
+  function goBack() {
+    window.location.href = BACK_URL;
+  }
+
+  /* ─── Char counter ─── */
+  function updateCharCount() {
+    const el  = document.getElementById('issueText');
+    const cnt = document.getElementById('charCount');
+    const len = el.value.length;
+    cnt.textContent = `${len} / 2000`;
+    cnt.classList.toggle('warn', len > 1800);
+  }
+
+  /* ─── Image upload (local preview) ─── */
+  let uploadedImages = []; // { base64, name }
+
+  function handleImageUpload(event) {
+    const files = Array.from(event.target.files);
+
+    if (uploadedImages.length + files.length > 3) {
+      showToast('Maximum 3 screenshots allowed!', 'error');
+      event.target.value = '';
+      return;
+    }
+
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        uploadedImages.push({ base64: e.target.result, name: file.name });
+        renderPreviews();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    event.target.value = '';
+  }
+
+  function renderPreviews() {
+    const container = document.getElementById('preview-container');
+    container.innerHTML = '';
+    uploadedImages.forEach((img, idx) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'preview-wrap';
+
+      const image = document.createElement('img');
+      image.src = img.base64;
+      image.alt = img.name;
+
+      const btn = document.createElement('button');
+      btn.className = 'remove-btn';
+      btn.type = 'button';
+      btn.innerHTML = '✕';
+      btn.onclick = () => {
+        uploadedImages.splice(idx, 1);
+        renderPreviews();
+      };
+
+      wrap.appendChild(image);
+      wrap.appendChild(btn);
+      container.appendChild(wrap);
+    });
+  }
+
+  /* ════════════════════════════════════════════
+     ⚙️  IMGBB UPLOAD — ek image upload karta hai
+     ════════════════════════════════════════════ */
+  async function uploadToImgBB(base64) {
+    // "data:image/png;base64,XXXX" se sirf "XXXX" part nikalna hai
+    const base64Data = base64.split(',')[1];
+
+    const formData = new FormData();
+    formData.append('image', base64Data);
+
+    const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      return data.data.url; // public image URL
+    } else {
+      throw new Error('ImgBB upload failed');
+    }
+  }
+
+  /* ─── Progress helpers ─── */
+  function setProgress(percent, text) {
+    const bar      = document.getElementById('uploadProgressBar');
+    const progress = document.getElementById('uploadProgress');
+    const label    = document.getElementById('uploadStatusText');
+
+    progress.style.display = 'block';
+    label.style.display    = 'block';
+    bar.style.width        = percent + '%';
+    label.textContent      = text;
+  }
+
+  function hideProgress() {
+    document.getElementById('uploadProgress').style.display    = 'none';
+    document.getElementById('uploadStatusText').style.display  = 'none';
+    document.getElementById('uploadProgressBar').style.width   = '0%';
+  }
+
+  /* ─── Toast ─── */
+  let toastTimer;
+  function showToast(msg, type = '') {
+    const toast = document.getElementById('toast');
+    const icons = {
+      error:   '<i class="fi fi-sr-triangle-warning"></i>',
+      success: '<i class="fi fi-ss-check-circle"></i>',
+      '':      '<i class="fi fi-sr-email-pending"></i>'
+    };
+    toast.innerHTML = `${icons[type] || ''} ${msg}`;
+    toast.className = `show ${type}`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.className = ''; }, 3500);
+  }
+
+  /* ════════════════════════════════════════════
+     ─── FORM SUBMIT ───
+     ════════════════════════════════════════════ */
+  document.getElementById('reportForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const issueText = document.getElementById('issueText').value.trim();
+    const email     = document.getElementById('emailInput').value.trim();
+
+    if (!issueText) {
+      showToast('Please describe the issue first!', 'error');
+      document.getElementById('issueText').focus();
+      return;
+    }
+
+    /* UI: loading */
+    const btn      = document.getElementById('submitBtn');
+    const spinner  = document.getElementById('spinner');
+    const sendIcon = document.getElementById('sendIcon');
+    const btnText  = document.getElementById('btnText');
+
+    btn.disabled           = true;
+    spinner.style.display  = 'block';
+    sendIcon.style.display = 'none';
+    btnText.textContent    = 'Uploading...';
+
+    /* ── Step 1: Screenshots ImgBB pe upload karo ── */
+    let screenshotLinks = '';
+
+    if (uploadedImages.length > 0) {
+      try {
+        const urls = [];
+        for (let i = 0; i < uploadedImages.length; i++) {
+          // Progress update
+          const percent = Math.round(((i) / uploadedImages.length) * 60);
+          setProgress(percent, `Uploading screenshot ${i + 1} of ${uploadedImages.length}...`);
+
+          const url = await uploadToImgBB(uploadedImages[i].base64);
+          urls.push(url);
+        }
+
+        // Links text banao email ke liye
+        screenshotLinks = urls.map((url, i) => `Screenshot ${i + 1}: ${url}`).join('\n');
+        setProgress(70, 'Screenshots uploaded! Sending report...');
+
+      } catch (err) {
+        console.error('ImgBB error:', err);
+        // Screenshot upload fail hua toh bhi report bhej do, bas note likh do
+        screenshotLinks = 'Screenshots upload failed — user had attached images';
+        setProgress(70, 'Screenshot upload failed, sending report anyway...');
+      }
+    } else {
+      screenshotLinks = 'No screenshots attached';
+    }
+
+    /* ── Step 2: EmailJS se report bhejo ── */
+    btnText.textContent = 'Sending...';
+    setProgress(85, 'Sending report...');
+
+    const templateParams = {
+      from_name      : email || 'Anonymous User',
+      reply_to       : email || 'noreply@zeni.app',
+      message        : issueText,
+      screenshot_info: screenshotLinks,
+      report_time    : new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+    };
+
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+
+      setProgress(100, 'Report sent!');
+
+      setTimeout(() => {
+        hideProgress();
+        /* Thank you overlay show karo */
+        document.getElementById('thankyou-overlay').classList.add('show');
+        /* 4 second baad wapas jao */
+        setTimeout(goBack, 4000);
+      }, 500);
+
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      hideProgress();
+      showToast('Something went wrong. Please try again!', 'error');
+
+      /* Button restore */
+      btn.disabled           = false;
+      spinner.style.display  = 'none';
+      sendIcon.style.display = '';
+      btnText.textContent    = 'Submit Report';
+    }
+  });
+
+</script>
+</body>
+</html>

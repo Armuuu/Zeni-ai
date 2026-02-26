@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About – Zeni</title>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-brands/css/uicons-brands.css'>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #141414;
+      --surface: #1e1e1e;
+      --surface2: #272727;
+      --surface3: #323232;
+      --border: rgba(255,255,255,0.08);
+      --accent: #EF7722;
+      --accent-dim: rgba(239,119,34,0.12);
+      --text: #f0f0f0;
+      --text-muted: #888;
+      --text-dim: #505050;
+      --header-h: 54px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 99px; }
+
+    /* ── HEADER ── */
+    header {
+      height: var(--header-h);
+      width: 100%;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .back {
+      background: none;
+      border: none;
+      border-radius: 8px;
+      height: 36px;
+      width: 36px;
+      font-size: 20px;
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+
+    .back:hover { background: var(--surface3); }
+
+    header h1 {
+      font-size: 18px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 600;
+      margin-left: 12px;
+    }
+
+    /* ── PAGE ── */
+    .page {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 32px 18px 70px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .card-title .ct-icon {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--accent-dim);
+      border-radius: 8px;
+      background: var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #b0b0b0;
+      line-height: 1.75;
+    }
+
+    /* ── FEATURE GRID ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    /* Icon on top, text below */
+    .feature-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .fp-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(239,119,34,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .fp-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .fp-text span {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── TECH BADGES ── */
+    .tech-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tech-badge {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 5px 13px;
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tech-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 30px 16px;
+    }
+
+    /* ── CONTACT ICONS ── */
+    .contact-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .social-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 20px;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.3s;
+    }
+
+    .social-btn:hover {
+      background: var(--accent-dim);
+      border-color: rgba(239,119,34,0.35);
+      color: var(--accent);
+      transform: scale(0.93);
+    }
+
+    /* ── SECTION SPACING ── */
+    .section { margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <button type="button" class="back" onclick="goBack()">
+    <i class="fi fi-rr-arrow-left"></i>
+  </button>
+  <h1>About Zeni</h1>
+</header>
+
+<!-- ── PAGE ── -->
+<div class="page">
+
+  <!-- What is Zeni -->
+  <div class="section">
+    <div class="section-label">About</div>
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon"><i class="fi fi-rr-chatbot"></i></div>
+        Who is Zeni?
+      </div>
+      <p>
+        Zeni is a personal AI chatbot built by <strong style="color:var(--text);">Arman</strong> as a passion project. It's designed to have natural conversations, answer your questions, and help with everyday things all inside a clean and simple interface.
+        <br><br>
+        Whether you want to chat freely, explore ideas, or just get quick answers, Zeni is here to help like a knowledgeable friend.
+      </p>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="section">
+    <div class="section-label">What can it do?</div>
+    <div class="feature-grid">
+
+      <div class="feature-pill">
+        <div class="fp-icon"><i class="fi fi-rr-comment-dots"></i></div>
+        <div class="fp-text">
+          <strong>Chat Freely</strong>
+          <span>Have real conversations on any topic you like</span>
+        </div>
+      </div>
+
+      <div class="feature-pill">
+        <div class="fp-icon"><i class="fi fi-rr-interrogation"></i></div>
+        <div class="fp-text">
+          <strong>Answer Questions</strong>
+          <span>Get clear answers to almost anything you ask</span>
+        </div>
+      </div>
+
+      <div class="feature-pill">
+        <div class="fp-icon"><i class="fi fi-rr-picture"></i></div>
+        <div class="fp-text">
+          <strong>Image Analysis</strong>
+          <span>Upload any image and ask Zeni anything about it</span>
+        </div>
+      </div>
+
+      <div class="feature-pill">
+        <div class="fp-icon"><i class="fi fi-rr-brain"></i></div>
+        <div class="fp-text">
+          <strong>Smart Context</strong>
+          <span>Remembers what was said earlier in the conversation</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Tech Stack -->
+  <div class="section">
+    <div class="section-label">Backend</div>
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon"><i class="fi fi-rr-settings"></i></div>
+        How it Works
+      </div>
+      <p>
+        Zeni runs on <strong style="color:var(--text);">(Gemini 2.0 Flash Lite)</strong> Google's fast and capable AI model, accessed through <strong style="color:var(--text);">OpenRouter</strong> under fair-use terms. The entire interface and experience is custom-built from scratch.
+      </p>
+      <div class="tech-row">
+        <div class="tech-badge"><span class="dot"></span> Gemini 2.0 Flash Lite</div>
+        <div class="tech-badge"><span class="dot"></span> OpenRouter API</div>
+        <div class="tech-badge"><span class="dot"></span> HTML / CSS / JS</div>
+        <div class="tech-badge"><span class="dot"></span> Personal Project</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Developer -->
+  <div class="section">
+    <div class="section-label">Developer</div>
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon"><i class="fi fi-rr-user"></i></div>
+        Built by Arman
+      </div>
+      <p>
+        This started as a small experiment and grew into a fully working AI chatbot. The goal was simple build something useful, clean, and actually fun to use. It's not a commercial product, just a personal project shared openly for everyone to use.
+      </p>
+    </div>
+  </div>
+
+  <!-- Privacy Notice — normal card, no yellow -->
+  <div class="section">
+    <div class="section-label">Privacy Notice</div>
+    <div class="card">
+      <div class="card-title">
+        <div class="ct-icon"><i class="fi fi-rr-shield-exclamation"></i></div>
+        Please read this before using
+      </div>
+      <p>
+        Your messages are sent to an external AI model (Gemini via OpenRouter) to generate responses. Your chats do not reach us but the AI provider may use conversation data to improve their models. So please be careful about what you share.
+      </p>
+      <ul style="margin: 12px 0 0 4px; padding-left: 16px;">
+        <li style="font-size:13.5px; color:#b0b0b0; line-height:1.8; margin-bottom:2px;">Do <strong style="color:var(--text);">not</strong> share passwords, OTPs, or login credentials</li>
+        <li style="font-size:13.5px; color:#b0b0b0; line-height:1.8; margin-bottom:2px;">Do <strong style="color:var(--text);">not</strong> share Aadhaar, PAN, or any ID numbers</li>
+        <li style="font-size:13.5px; color:#b0b0b0; line-height:1.8; margin-bottom:2px;">Do <strong style="color:var(--text);">not</strong> share bank details or financial information</li>
+        <li style="font-size:13.5px; color:#b0b0b0; line-height:1.8;">Do <strong style="color:var(--text);">not</strong> share any sensitive personal data</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <hr class="divider">
+
+  <!-- Contact / Social -->
+  <div class="contact-row">
+    <a href="https://www.instagram.com/ig._.arman7?igsh=MXY5NTcyaG00MmlnZw==" class="social-btn" title="Instagram" target="_blank" rel="noopener">
+      <i class="fi fi-brands-instagram"></i>
+    </a>
+    <a href="https://discord.com/users/1260618413651263521" class="social-btn" title="Discord" target="_blank" rel="noopener">
+      <i class="fi fi-brands-discord"></i>
+    </a>
+    <a href="mailto:armanclg222@gmail.com" class="social-btn" title="Email" target="_blank" rel="noopener">
+      <i class="fi fi-rr-envelope"></i>
+    </a>
+    <a href="https://github.com/Armuuu" class="social-btn" title="GitHub" target="_blank" rel="noopener">
+      <i class="fi fi-brands-github"></i>
+    </a>
+  </div>
+</div>
+  
+  <script>
+  
+  const BACK_URL = "index.html";
+  function goBack() {  
+    window.location.href = BACK_URL;  
+  }  
+  
+  </script>
+</body>
+</html>
