@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         'HTTP-Referer': req.headers.referer || 'https://your-vercel-app.vercel.app',
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.0-flash-lite-001',
+        model: 'google/gemini-2.5-flash',
         messages: [
           {
             role: 'system',
