@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         'HTTP-Referer': req.headers.referer || 'https://your-vercel-app.vercel.app',
       },
       body: JSON.stringify({
-        model: 'qwen/qwen3.6-plus',
+        model: 'qwen/qwen3.6-plus-preview',
         messages: [
           {
             role: 'system',
