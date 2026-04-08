@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         'HTTP-Referer': req.headers.referer || 'https://your-vercel-app.vercel.app',
       },
       body: JSON.stringify({
-        model: 'openrouter/free',
+        model: 'qwen/qwen3.6-plus:free',
         messages: [
           {
             role: 'system',
