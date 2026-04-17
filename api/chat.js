@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   }
 
   // ── Agent models ──────────────────────────────────────────
-  const AGENT1_MODEL = 'google/gemini-2.0-flash-lite-001';
+  const AGENT1_MODEL = 'qwen/qwen3-next-80b-a3b-instruct';
   const AGENT2_MODEL = 'qwen/qwen3-coder';
 
   // Frontend bhejta hai model string — validate karke use karo
