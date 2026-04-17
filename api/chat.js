@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
   // ── Agent models ──────────────────────────────────────────
   const AGENT1_MODEL = 'google/gemini-2.0-flash-lite-001';
-  const AGENT2_MODEL = 'qwen/qwen3-coder:free';
+  const AGENT2_MODEL = 'qwen/qwen3-coder';
 
   // Frontend bhejta hai model string — validate karke use karo
   const allowedModels = [AGENT1_MODEL, AGENT2_MODEL];
