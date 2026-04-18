@@ -10,8 +10,8 @@ export default async function handler(req, res) {
   }
 
   // ── Agent models ──────────────────────────────────────────
-  const AGENT1_MODEL = 'qwen/qwen3-next-80b-a3b-instruct';
-  const AGENT2_MODEL = 'qwen/qwen3-coder';
+  const AGENT1_MODEL = 'openai/gpt-oss-120b';
+  const AGENT2_MODEL = 'moonshotai/kimi-k2.5';
 
   // Frontend bhejta hai model string — validate karke use karo
   const allowedModels = [AGENT1_MODEL, AGENT2_MODEL];
