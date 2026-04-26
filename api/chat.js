@@ -9,44 +9,64 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'messages array required' });
   }
 
-  // ── Agent models ──────────────────────────────────────────
-  const AGENT1_MODEL = 'google/gemma-4-26b-a4b-it';
-  const AGENT2_MODEL = 'google/gemma-4-31b-it';
+  // ── Gemini Models ──────────────────────────────────────────
+  const AGENT1_MODEL = 'gemini-2.5-flash';
+  const AGENT2_MODEL = 'gemini-2.5-pro';
 
-  // Frontend bhejta hai model string — validate karke use karo
   const allowedModels = [AGENT1_MODEL, AGENT2_MODEL];
   const selectedModel = allowedModels.includes(model) ? model : AGENT1_MODEL;
 
-  const systemContent = systemPrompt ||
-    'You are Zeni, a highly capable AI assistant. Be helpful, clear, and concise. When writing code, always wrap it in proper markdown code blocks with the language specified. Format responses cleanly. If given a file or image, analyze it thoroughly and answer the user\'s question about it.';
+  // AI ko Date aur Time batane ke liye Dynamic System Prompt
+  const currentDate = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'long' });
+  const systemContent = systemPrompt || 
+    `You are Zeni, a highly capable AI assistant. Be helpful, clear, and concise. Today's date and time is ${currentDate}. Always answer based on the current year. When writing code, always wrap it in proper markdown code blocks with the language specified. If given a file or image, analyze it thoroughly and answer the user's question about it.`;
+
+  // Map OpenAI format (from frontend) to Gemini API format
+  const geminiContents = messages.map(m => {
+    let role = (m.role === 'ai' || m.role === 'assistant') ? 'model' : 'user';
+    let parts = [];
+    
+    if (Array.isArray(m.content)) {
+      m.content.forEach(c => {
+        if (c.type === 'text') parts.push({ text: c.text });
+        if (c.type === 'image_url') {
+          const b64 = c.image_url.url.split(',')[1];
+          const mime = c.image_url.url.split(';')[0].split(':')[1];
+          parts.push({ inlineData: { data: b64, mimeType: mime } });
+        }
+      });
+    } else {
+      parts.push({ text: m.content || '' });
+    }
+    return { role, parts };
+  });
+
+  const body = {
+    systemInstruction: { parts: [{ text: systemContent }] },
+    contents: geminiContents,
+  };
 
   try {
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const API_KEY = process.env.GEMINI_API_KEY;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${API_KEY}`;
+
+    const response = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': req.headers.referer || 'https://your-vercel-app.vercel.app',
-      },
-      body: JSON.stringify({
-        model: selectedModel,
-        messages: [
-          { role: 'system', content: systemContent },
-          ...messages
-        ]
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-      const errText = await response.text();
-      return res.status(response.status).json({ error: errText });
+      return res.status(response.status).json({ error: data.error?.message || 'Error from Gemini API' });
     }
 
-    const data = await response.json();
-    return res.status(200).json({ reply: data.choices[0].message.content });
+    const reply = data.candidates[0].content.parts[0].text;
+    return res.status(200).json({ reply });
 
   } catch (err) {
     console.error('API Error:', err);
     return res.status(500).json({ error: 'Internal server error' });
   }
-}
+      }
