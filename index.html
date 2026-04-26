@@ -585,7 +585,7 @@ function buildMsgEl(m, appendTo){
     msgEl.appendChild(wrap);
   } else {
     
-    const agentLabel = (m.agent && m.agent.includes("Agent 2")) ? "Agent2" : "Agent1";
+    const agentLabel = (m.agent && m.agent.includes("Agent 2")) ? "Agent 2" : "Agent 1";
     const elapsed    = (m.elapsed !== undefined && m.elapsed !== null) ? ` • ${m.elapsed}s` : '';
     const timeStr    = fmtTime(m.ts||Date.now());
     // Typewriter logic check
