@@ -584,10 +584,10 @@ function buildMsgEl(m, appendTo){
     wrap.dataset.text = m.content||'';
     msgEl.appendChild(wrap);
   } else {
-    const agentLabel = m.agent||AGENT1_LABEL;
+    
+    const agentLabel = (m.agent && m.agent.includes("Agent 2")) ? "Agent2" : "Agent1";
     const elapsed    = (m.elapsed !== undefined && m.elapsed !== null) ? ` • ${m.elapsed}s` : '';
     const timeStr    = fmtTime(m.ts||Date.now());
-    
     // Typewriter logic check
     const bubbleContent = m.typewriter ? '' : renderContent(m.content||'');
 
