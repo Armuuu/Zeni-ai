@@ -1,16 +1,10 @@
 {
   "name": "zeni",
   "version": "1.0.0",
-  "description": "Zeni AI Chat & Image Generation",
-  "main": "index.js",
-  "scripts": {
-    "build": "echo 'No build needed'"
-  },
   "dependencies": {
     "@google/genai": "^1.3.0"
   },
   "engines": {
     "node": "20.x"
-  },
-  "license": "MIT"
+  }
 }
