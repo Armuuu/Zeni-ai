@@ -12,15 +12,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.ZENI_IMAGE_API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_AI_API_KEY });
 
     // Build contents array
     const parts = [];
 
-    // If user sent a reference image, include it first
+    // If user sent a reference image, include it
     if (refImage && typeof refImage === "string" && refImage.includes(",")) {
       const base64Data = refImage.split(",")[1];
-      const mimeType   = refImage.split(";")[0].split(":")[1];
+      const mimeType = refImage.split(";")[0].split(":")[1];
       parts.push({
         inlineData: {
           mimeType,
@@ -29,39 +29,42 @@ export default async function handler(req, res) {
       });
     }
 
-    // Add the text prompt
     parts.push({ text: prompt });
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash-image",  // Nano Banana
-      contents: [{ parts }],
-      generationConfig: {
+      model: "gemini-2.5-flash-image",
+      contents: [{ role: "user", parts }],
+      config: {
         responseModalities: ["IMAGE", "TEXT"],
       },
     });
 
-    // Find the image part in the response
+    // Extract image from response
     let imageBase64 = null;
-    let imageMime   = "image/png";
+    let imageMime = "image/png";
 
-    for (const part of response.candidates[0].content.parts) {
-      if (part.inlineData) {
-        imageBase64 = part.inlineData.data;
-        imageMime   = part.inlineData.mimeType || "image/png";
-        break;
+    const candidates = response.candidates || [];
+    if (candidates.length > 0) {
+      const contentParts = candidates[0].content?.parts || [];
+      for (const part of contentParts) {
+        if (part.inlineData) {
+          imageBase64 = part.inlineData.data;
+          imageMime = part.inlineData.mimeType || "image/png";
+          break;
+        }
       }
     }
 
     if (!imageBase64) {
+      console.error("Full response:", JSON.stringify(response, null, 2));
       return res.status(500).json({ error: "No image returned from model" });
     }
 
-    // Return as data URL so frontend can use it directly
     const imageUrl = `data:${imageMime};base64,${imageBase64}`;
     return res.status(200).json({ imageUrl });
 
   } catch (err) {
-    console.error("Image API Error:", err);
-    return res.status(500).json({ error: err.message || "Internal server error" });
+    console.error("Image API Error:", err?.message || err);
+    return res.status(500).json({ error: err?.message || "Internal server error" });
   }
 }
