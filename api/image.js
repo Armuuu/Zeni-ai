@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_AI_API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.ZENI_IMAGE_API_KEY });
 
     // Build contents array
     const parts = [];
