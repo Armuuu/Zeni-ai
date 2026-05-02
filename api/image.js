@@ -10,39 +10,37 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Dynamic import — works reliably on Vercel with ESM packages
     const { GoogleGenAI } = await import("@google/genai");
 
-    const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_AI_API_KEY });
+    // v1alpha required for image generation
+    const ai = new GoogleGenAI({
+      apiKey: process.env.GOOGLE_AI_API_KEY,
+      httpOptions: { apiVersion: "v1alpha" },
+    });
 
-    // Build parts array
     const parts = [];
 
-    // Add reference image if provided
     if (refImage && typeof refImage === "string" && refImage.includes(",")) {
       const base64Data = refImage.split(",")[1];
       const mimeType = refImage.split(";")[0].split(":")[1];
-      parts.push({
-        inlineData: { mimeType, data: base64Data },
-      });
+      parts.push({ inlineData: { mimeType, data: base64Data } });
     }
 
     parts.push({ text: prompt });
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash-image-preview",
+      model: "gemini-2.0-flash-preview-image-generation",
       contents: [{ role: "user", parts }],
       config: {
         responseModalities: ["IMAGE", "TEXT"],
       },
     });
 
-    // Extract image from response
     let imageBase64 = null;
     let imageMime = "image/png";
 
-    const parts2 = response?.candidates?.[0]?.content?.parts || [];
-    for (const part of parts2) {
+    const resParts = response?.candidates?.[0]?.content?.parts || [];
+    for (const part of resParts) {
       if (part.inlineData) {
         imageBase64 = part.inlineData.data;
         imageMime = part.inlineData.mimeType || "image/png";
@@ -52,7 +50,7 @@ export default async function handler(req, res) {
 
     if (!imageBase64) {
       console.error("No image in response:", JSON.stringify(response));
-      return res.status(500).json({ error: "Model returned no image. Check your API key permissions." });
+      return res.status(500).json({ error: "Model returned no image" });
     }
 
     return res.status(200).json({
@@ -60,7 +58,7 @@ export default async function handler(req, res) {
     });
 
   } catch (err) {
-    console.error("Image API Error:", err?.message || err);
+    console.error("Image API Error:", JSON.stringify(err?.message || err));
     return res.status(500).json({ error: err?.message || "Internal server error" });
   }
 }
