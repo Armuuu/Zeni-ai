@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     parts.push({ text: prompt });
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash-image",
+      model: "imagen-3.0-generate-002",
       contents: [{ role: "user", parts }],
       config: {
         responseModalities: ["IMAGE", "TEXT"],
