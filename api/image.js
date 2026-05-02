@@ -1,5 +1,3 @@
-import { GoogleGenAI } from "@google/genai";
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -12,20 +10,20 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Dynamic import — works reliably on Vercel with ESM packages
+    const { GoogleGenAI } = await import("@google/genai");
+
     const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_AI_API_KEY });
 
-    // Build contents array
+    // Build parts array
     const parts = [];
 
-    // If user sent a reference image, include it
+    // Add reference image if provided
     if (refImage && typeof refImage === "string" && refImage.includes(",")) {
       const base64Data = refImage.split(",")[1];
       const mimeType = refImage.split(";")[0].split(":")[1];
       parts.push({
-        inlineData: {
-          mimeType,
-          data: base64Data,
-        },
+        inlineData: { mimeType, data: base64Data },
       });
     }
 
@@ -43,25 +41,23 @@ export default async function handler(req, res) {
     let imageBase64 = null;
     let imageMime = "image/png";
 
-    const candidates = response.candidates || [];
-    if (candidates.length > 0) {
-      const contentParts = candidates[0].content?.parts || [];
-      for (const part of contentParts) {
-        if (part.inlineData) {
-          imageBase64 = part.inlineData.data;
-          imageMime = part.inlineData.mimeType || "image/png";
-          break;
-        }
+    const parts2 = response?.candidates?.[0]?.content?.parts || [];
+    for (const part of parts2) {
+      if (part.inlineData) {
+        imageBase64 = part.inlineData.data;
+        imageMime = part.inlineData.mimeType || "image/png";
+        break;
       }
     }
 
     if (!imageBase64) {
-      console.error("Full response:", JSON.stringify(response, null, 2));
-      return res.status(500).json({ error: "No image returned from model" });
+      console.error("No image in response:", JSON.stringify(response));
+      return res.status(500).json({ error: "Model returned no image. Check your API key permissions." });
     }
 
-    const imageUrl = `data:${imageMime};base64,${imageBase64}`;
-    return res.status(200).json({ imageUrl });
+    return res.status(200).json({
+      imageUrl: `data:${imageMime};base64,${imageBase64}`,
+    });
 
   } catch (err) {
     console.error("Image API Error:", err?.message || err);
