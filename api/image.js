@@ -9,47 +9,57 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "prompt string required" });
   }
 
-  try {
-    const { GoogleGenAI } = await import("@google/genai");
+  const apiKey = process.env.GOOGLE_AI_API_KEY;
+  const model  = "gemini-2.5-flash-image";
+  const url    = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
-    // v1alpha required for image generation
-    const ai = new GoogleGenAI({
-      apiKey: process.env.GOOGLE_AI_API_KEY,
-      httpOptions: { apiVersion: "v1alpha" },
+  // Build parts array
+  const parts = [];
+
+  if (refImage && typeof refImage === "string" && refImage.includes(",")) {
+    const base64Data = refImage.split(",")[1];
+    const mimeType   = refImage.split(";")[0].split(":")[1];
+    parts.push({ inline_data: { mime_type: mimeType, data: base64Data } });
+  }
+
+  parts.push({ text: prompt });
+
+  const body = {
+    contents: [{ role: "user", parts }],
+    generationConfig: {
+      responseModalities: ["IMAGE", "TEXT"],
+    },
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
     });
 
-    const parts = [];
+    const data = await response.json();
 
-    if (refImage && typeof refImage === "string" && refImage.includes(",")) {
-      const base64Data = refImage.split(",")[1];
-      const mimeType = refImage.split(";")[0].split(":")[1];
-      parts.push({ inlineData: { mimeType, data: base64Data } });
+    if (!response.ok) {
+      console.error("Gemini error:", JSON.stringify(data));
+      return res.status(response.status).json({ error: JSON.stringify(data.error || data) });
     }
 
-    parts.push({ text: prompt });
-
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash-preview-image-generation",
-      contents: [{ role: "user", parts }],
-      config: {
-        responseModalities: ["IMAGE", "TEXT"],
-      },
-    });
-
+    // Extract image from response
     let imageBase64 = null;
-    let imageMime = "image/png";
+    let imageMime   = "image/png";
 
-    const resParts = response?.candidates?.[0]?.content?.parts || [];
+    const resParts = data?.candidates?.[0]?.content?.parts || [];
     for (const part of resParts) {
-      if (part.inlineData) {
-        imageBase64 = part.inlineData.data;
-        imageMime = part.inlineData.mimeType || "image/png";
+      if (part.inline_data) {
+        imageBase64 = part.inline_data.data;
+        imageMime   = part.inline_data.mime_type || "image/png";
         break;
       }
     }
 
     if (!imageBase64) {
-      console.error("No image in response:", JSON.stringify(response));
+      console.error("No image in response:", JSON.stringify(data));
       return res.status(500).json({ error: "Model returned no image" });
     }
 
@@ -58,7 +68,7 @@ export default async function handler(req, res) {
     });
 
   } catch (err) {
-    console.error("Image API Error:", JSON.stringify(err?.message || err));
+    console.error("Image API Error:", err?.message || err);
     return res.status(500).json({ error: err?.message || "Internal server error" });
   }
 }
