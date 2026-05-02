@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   }
 
   const apiKey = process.env.GOOGLE_AI_API_KEY;
-  const model  = "gemini-2.5-flash-image";
+  const model  = "gemini-2.0-flash-exp";
   const url    = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   // Build parts array
