@@ -54,8 +54,8 @@ export default async function handler(req, res) {
   }
 
   // ── Gemini Text Models (Fix for Agent 2) ───────────────────
-  const AGENT1_MODEL = 'gemini-1.5-flash';
-  const AGENT2_MODEL = 'gemini-1.5-pro';
+  const AGENT1_MODEL = 'gemini-2.5-flash';
+  const AGENT2_MODEL = 'gemini-2.5-pro';
 
   // Fallback compatibility with frontend variables
   const allowedModels = [AGENT1_MODEL, AGENT2_MODEL, 'gemini-2.5-flash', 'gemini-2.5-pro'];
