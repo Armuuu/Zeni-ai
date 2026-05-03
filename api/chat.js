@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     }
 
     // Both agents use gemini-2.0-flash-exp for image generation (free tier)
-    const imgModel = 'gemini-2.5-flash-image';
+    const imgModel = 'gemini-1.5-flash-image';
     const imgUrl = `https://generativelanguage.googleapis.com/v1beta/models/${imgModel}:generateContent?key=${API_KEY}`;
 
     const parts = [];
@@ -72,8 +72,8 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'messages array required' });
   }
 
-  const AGENT1_MODEL = 'gemini-1.5-flash';
-  const AGENT2_MODEL = 'gemini-2.5-flash';
+  const AGENT1_MODEL = 'gemini-2.5-flash';
+  const AGENT2_MODEL = 'gemini-2.5-pro';
   const allowedModels = [AGENT1_MODEL, AGENT2_MODEL];
   const selectedModel = allowedModels.includes(model) ? model : AGENT1_MODEL;
 
