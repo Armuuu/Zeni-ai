@@ -35,6 +35,7 @@
     .header-grp-a{display:flex;}
     .header-grp-a.hidden-btn{display:none;}
     #headerIncognitoBtn.incognito-on{color:var(--accent);background:var(--accent-dim)}
+    #headerImageBtn.image-on{color:var(--accent);background:var(--accent-dim)}
 
     /* ── OVERLAY ── */
     .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s}
@@ -85,6 +86,13 @@
     .ctx-item.danger{color:var(--danger)}
     .ctx-item.danger:active{background:rgba(224,85,85,.12)}
     .ctx-item i{font-size:15px;width:18px;flex-shrink:0}
+    
+    .ctx-item.toggle-row { justify-content: space-between; }
+    .toggle-switch { width: 34px; height: 18px; background: var(--surface3); border-radius: 10px; position: relative; transition: background 0.3s; pointer-events: none; }
+    .toggle-switch::after { content: ''; position: absolute; left: 2px; top: 2px; width: 14px; height: 14px; background: #fff; border-radius: 50%; transition: transform 0.3s; }
+    .toggle-switch.on { background: var(--accent); }
+    .toggle-switch.on::after { transform: translateX(16px); }
+
     .header-ctx-menu{position:fixed;top:calc(var(--header-h) + 5px);right:10px;background:var(--surface2);border:1px solid var(--border);border-radius:13px;padding:6px;min-width:195px;max-width:195px;z-index:500;box-shadow:0 10px 36px rgba(0,0,0,.5);opacity:0;transform:scale(.93) translateY(-4px);pointer-events:none;transition:opacity .14s,transform .14s;transform-origin:top right}
     .header-ctx-menu.show{opacity:1;transform:scale(1) translateY(0);pointer-events:all}
     .ctx-divider{height:1px;background:var(--border);margin:4px 8px}
@@ -107,7 +115,7 @@
     .agent-label{padding:8px 14px 4px;font-size:11px;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:.6px}
 
     /* Plus menu popup */
-    .plus-menu{position:fixed;background:var(--surface2);border:1px solid var(--border);border-radius:13px;padding:6px;min-width:175px;z-index:500;box-shadow:0 10px 36px rgba(0,0,0,.5);opacity:0;transform:scale(.93) translateY(6px);pointer-events:none;transition:opacity .14s,transform .14s;transform-origin:bottom left}
+    .plus-menu{position:fixed;background:var(--surface2);border:1px solid var(--border);border-radius:13px;padding:6px;min-width:200px;z-index:500;box-shadow:0 10px 36px rgba(0,0,0,.5);opacity:0;transform:scale(.93) translateY(6px);pointer-events:none;transition:opacity .14s,transform .14s;transform-origin:bottom left}
     .plus-menu.show{opacity:1;transform:scale(1) translateY(0);pointer-events:all}
 
     /* ── ARCHIVE PANEL ── */
@@ -130,10 +138,10 @@
     .chat-area{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:20px 14px 10px;display:flex;flex-direction:column;-webkit-overflow-scrolling:touch}
     .chat-area::-webkit-scrollbar{display:none}
 
-    /* Incognito banner */
-    .incognito-banner{display:none;align-items:center;gap:8px;padding:8px 16px;background:rgba(239,119,34,0.08);border-bottom:1px solid var(--border);font-size:12.5px;color:var(--text-muted);flex-shrink:0}
-    .incognito-banner.show{display:flex}
-    .incognito-banner i{color:var(--accent);font-size:14px}
+    /* Banners */
+    .incognito-banner, .image-banner{display:none;align-items:center;gap:8px;padding:8px 16px;background:rgba(239,119,34,0.08);border-bottom:1px solid var(--border);font-size:12.5px;color:var(--text-muted);flex-shrink:0}
+    .incognito-banner.show, .image-banner.show{display:flex}
+    .incognito-banner i, .image-banner i{color:var(--accent);font-size:14px}
 
     /* ── WELCOME ── */
     .welcome{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding-bottom:30px;text-align:center}
@@ -155,7 +163,7 @@
     .msg-bubble{padding:10px 14px;border-radius:16px;font-size:14.5px;line-height:1.65;word-break:break-word;position:relative}
     .msg.user .msg-bubble{background:var(--user-bubble);color:var(--text);border:1px solid rgba(239,119,34,0.2);border-bottom-right-radius:4px;cursor:pointer}
     .msg.ai .msg-bubble{background:var(--ai-bubble);color:var(--text);border:1px solid var(--border);border-bottom-left-radius:4px}
-    .msg-bubble img{max-width:200px;border-radius:10px;margin-bottom:6px;display:block}
+    .msg-bubble img{max-width:100%;border-radius:10px;margin-bottom:6px;display:block}
 
     .file-chip{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 12px;margin-bottom:6px;max-width:220px}
     .file-chip i{font-size:18px;color:var(--accent);flex-shrink:0}
@@ -173,6 +181,9 @@
     .ai-copy-btn{display:flex;align-items:center;font-size:13px;color:var(--text-dim);background:transparent;border:none;cursor:pointer;padding:4px 6px;border-radius:7px;transition:background .12s,color .12s}
     .ai-copy-btn:active{background:var(--surface3);color:var(--text)}
     .ai-msg-time{font-size:11px;color:var(--text-dim)}
+    
+    .img-download-btn { display:inline-flex; align-items:center; gap:6px; margin-top:8px; padding:8px 14px; background:var(--accent); color:#fff; border-radius:8px; text-decoration:none; font-size:13px; font-weight:500; transition: background 0.15s; }
+    .img-download-btn:active { background: #d66415; }
 
     .code-block{background:#0d0d0d;border:1px solid var(--border);border-radius:10px;margin:8px 0;overflow:hidden}
     .code-block-header{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid var(--border);background:#111}
@@ -184,15 +195,18 @@
     pre{margin:0;padding:12px;overflow-x:auto;font-size:13px;line-height:1.6}
     pre code{font-family:'Courier New',monospace;color:#e8e8e8;white-space:pre}
 
-    /* ── TYPING ── */
+    /* ── TYPING / GENERATING ── */
     .typing-indicator{display:flex;align-items:center;gap:5px;padding:3px 0}
     .typing-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:tDot 1.2s ease-in-out infinite}
     .typing-dot:nth-child(2){animation-delay:.2s}
     .typing-dot:nth-child(3){animation-delay:.4s}
     @keyframes tDot{0%,60%,100%{opacity:.3;transform:scale(.8)}30%{opacity:1;transform:scale(1.1)}}
+    
+    .sparkle-loading { display: flex; align-items: center; justify-content: center; color: var(--accent); animation: pulse 1.5s infinite; font-size: 18px; padding: 4px 0; }
+    @keyframes pulse { 0% { transform: scale(0.85); opacity: 0.6; } 50% { transform: scale(1.15); opacity: 1; text-shadow: 0 0 12px rgba(239,119,34,0.6); } 100% { transform: scale(0.85); opacity: 0.6; } }
 
     /* ── INPUT AREA ── */
-    .input-wrap{flex-shrink:0;padding:6px 10px 14px;background:var(--bg)}
+    .input-wrap{flex-shrink:0;padding:6px 10px 14px;background:var(--bg); display:flex; flex-direction:column;}
     .attach-previews{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
     .preview-chip{position:relative;display:inline-flex}
     .preview-chip img{max-height:70px;border-radius:9px;border:1px solid var(--border)}
@@ -224,9 +238,14 @@
     .send-btn.enabled{opacity:1;pointer-events:all}
     .send-btn.enabled:active{transform:scale(.93)}
     .send-btn.locked{opacity:.3!important;pointer-events:none!important}
+    
+    .disclaimer { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px; font-family: 'DM Sans', sans-serif; letter-spacing: 0.2px; }
+    .disclaimer a { color: var(--accent); text-decoration: none; font-weight: 500; margin-left: 2px;}
+    .disclaimer a:hover { text-decoration: underline; }
 
     #camera-input,#image-input,#file-input{display:none}
     .incognito-welcome .welcome-icon-box{background:var(--surface2);border-color:var(--border)}
+    .image-welcome .welcome-icon-box{background:rgba(239,119,34,0.15);border-color:var(--accent-dim); box-shadow: none;}
   </style>
 </head>
 <body>
@@ -247,7 +266,7 @@
         <i class="fi fi-rr-box"></i> Archived Chats
       </button>
       <a class="sidebar-action-btn" href="image.html">
-        <i class="fi fi-rr-graphic-style"></i> Try Image Tool
+        <i class="fi fi-rr-picture"></i> Your Generated Images
         <span class="new-badge">New</span>
       </a>
       <a class="sidebar-action-btn" href="about.html">
@@ -280,7 +299,7 @@
       <i class="fi fi-sr-bulb agent-item-icon"></i>
       <div class="agent-left">
         <div class="agent-name">Agent 1</div>
-        <div class="agent-desc">Gemini 2.5 Flash — Fast & general</div>
+        <div class="agent-desc">Gemini 1.5 Flash — Fast & general</div>
       </div>
       <i class="fi fi-rr-check agent-tick"></i>
     </button>
@@ -289,7 +308,7 @@
       <i class="fi fi-sr-bolt agent-item-icon"></i>
       <div class="agent-left">
         <div class="agent-name">Agent 2</div>
-        <div class="agent-desc">Gemini 2.5 Pro — Heavy tasks & coding</div>
+        <div class="agent-desc">Gemini 1.5 Pro — Heavy tasks & coding</div>
       </div>
       <i class="fi fi-rr-check agent-tick"></i>
     </button>
@@ -298,7 +317,11 @@
     <button class="ctx-item" onclick="triggerCamera()"><i class="fi fi-rr-camera"></i> Camera</button>
     <button class="ctx-item" onclick="triggerImage()"><i class="fi fi-rr-picture"></i> Image</button>
     <button class="ctx-item" onclick="triggerFile()"><i class="fi fi-rr-document"></i> File / PDF</button>
-    <a class="ctx-item" href="image.html"><i class="fi fi-rr-graphic-style"></i> Create Image</a>
+    <div class="ctx-divider"></div>
+    <button class="ctx-item toggle-row" onclick="toggleImageMode()">
+      <span><i class="fi fi-rr-sparkles"></i> Create Image</span>
+      <div class="toggle-switch" id="plusMenuImageToggle"></div>
+    </button>
   </div>
 
   <header>
@@ -318,9 +341,9 @@
       <button class="icon-btn header-grp-a" id="headerIncognitoBtn" onclick="toggleIncognito()" title="Incognito Chat">
         <i class="fi fi-rr-incognito"></i>
       </button>
-      <a class="icon-btn header-grp-a" href="image.html" title="Image Generation" style="text-decoration: none;">
+      <button class="icon-btn header-grp-a" id="headerImageBtn" onclick="toggleImageMode()" title="Image Generation">
         <i class="fi fi-rr-graphic-style"></i>
-      </a>
+      </button>
     </div>
   </header>
 
@@ -328,6 +351,10 @@
     <div class="incognito-banner" id="incognitoBanner">
       <i class="fi fi-rr-incognito"></i>
       <span>Incognito mode — chats won't be saved</span>
+    </div>
+    <div class="image-banner" id="imageBanner">
+      <i class="fi fi-rr-sparkles"></i>
+      <span>Image Mode — Describe what you want to see</span>
     </div>
 
     <div class="chat-area" id="chatArea">
@@ -363,6 +390,10 @@
           </button>
         </div>
       </div>
+      <div class="disclaimer">
+        All answers are AI generated. Please double check it. <a href="about.html">Learn more</a>
+      </div>
+      
       <input type="file" id="camera-input" accept="image/*" capture="environment" onchange="handleFileAttach(event,'image')">
       <input type="file" id="image-input" accept="image/*" onchange="handleFileAttach(event,'image')">
       <input type="file" id="file-input" accept=".pdf,.doc,.docx,.txt,.csv,.json,.md" onchange="handleFileAttach(event,'file')">
@@ -372,10 +403,10 @@
 
 <script>
 // ════════════════════════════════════════════════
-// MODELS (Updated to Gemini)
+// MODELS (Updated for reliable APIs)
 // ════════════════════════════════════════════════
-const AGENT1_MODEL = "gemini-2.5-flash";
-const AGENT2_MODEL = "gemini-2.5-pro";
+const AGENT1_MODEL = "gemini-1.5-flash";
+const AGENT2_MODEL = "gemini-1.5-pro";
 const AGENT1_LABEL = "Agent 1 ";
 const AGENT2_LABEL = "Agent 2 ";
 
@@ -392,6 +423,7 @@ let attachments   = [];
 let aiThinking    = false;
 let activeAgent   = 1;
 let incognitoMode = false;
+let imageMode     = false;
 let incognitoMessages = [];  
 
 // ════════════════════════════════════════════════
@@ -522,28 +554,34 @@ function renderChatsList(filter=''){
 function filterChats(val){ renderChatsList(val); }
 
 function newChat(){
-  if(incognitoMode){ clearIncognito(); return; }
+  if(incognitoMode) clearIncognito(); 
+  if(imageMode) clearImageMode();
   pendingChatId=genId(); currentChatId=null;
   document.getElementById('messages').innerHTML='';
-  showWelcome(false); updateHeaderBtns(); renderChatsList(); closeSidebar(); closeAllMenus();
+  showWelcome('normal'); updateHeaderBtns(); renderChatsList(); closeSidebar(); closeAllMenus();
   setTimeout(()=>document.getElementById('msg-input').focus(),300);
 }
 function openChat(id){
   if(incognitoMode) return;
+  if(imageMode) clearImageMode();
   pendingChatId=null; currentChatId=id;
   renderMessages(); renderChatsList(); updateHeaderBtns(); updateHeaderMenuContent(); closeSidebar();
 }
 
-function showWelcome(incognito){
+function showWelcome(mode){
   const ws=document.getElementById('welcomeScreen');
   const icon=document.getElementById('welcomeIcon');
   const title=document.getElementById('welcomeTitle');
   const sub=document.getElementById('welcomeSubtitle');
-  ws.classList.remove('hidden','incognito-welcome');
-  if(incognito){
+  ws.classList.remove('hidden','incognito-welcome','image-welcome');
+  if(mode === 'incognito'){
     ws.classList.add('incognito-welcome');
     icon.className='fi fi-rr-incognito'; icon.style.color='var(--text-muted)';
     title.textContent="Incognito Chat"; sub.textContent="This chat won't be saved. Close incognito to end.";
+  } else if (mode === 'image') {
+    ws.classList.add('image-welcome');
+    icon.className='fi fi-rr-sparkles'; icon.style.color='var(--accent)';
+    title.textContent="Image Generation"; sub.textContent="Give prompt to generate images.";
   } else {
     icon.className='fi fi-rr-sparkles'; icon.style.color='#fff';
     title.textContent="Hey, I'm Zeni"; sub.textContent="Your AI assistant, ready to help with anything you need.";
@@ -551,13 +589,13 @@ function showWelcome(incognito){
 }
 
 // ════════════════════════════════════════════════
-// RENDER MESSAGES & TYPING ANIMATION FIX
+// RENDER MESSAGES & TYPING ANIMATION
 // ════════════════════════════════════════════════
 function renderMessages(){
   const chat=getCurrentChat();
   const msgEl=document.getElementById('messages');
   msgEl.innerHTML='';
-  if(!chat||!chat.messages||!chat.messages.length){ showWelcome(false); return; }
+  if(!chat||!chat.messages||!chat.messages.length){ showWelcome('normal'); return; }
   document.getElementById('welcomeScreen').classList.add('hidden');
   chat.messages.forEach(m=>buildMsgEl(m));
   scrollBottom();
@@ -588,31 +626,35 @@ function buildMsgEl(m, appendTo){
     const agentLabel = (m.agent && m.agent.includes("Agent 2")) ? "Agent 2" : "Agent 1";
     const elapsed    = (m.elapsed !== undefined && m.elapsed !== null) ? ` • ${m.elapsed}s` : '';
     const timeStr    = fmtTime(m.ts||Date.now());
-    // Typewriter logic check
-    const bubbleContent = m.typewriter ? '' : renderContent(m.content||'');
+    
+    let bubbleContent = '';
+    if(m.isGeneratedImage) {
+        bubbleContent = `<img src="${m.content}" alt="Generated Image">
+                         <a href="${m.content}" download="Zeni_Image_${Date.now()}.jpg" class="img-download-btn"><i class="fi fi-rr-download"></i> Download Image</a>`;
+    } else {
+        bubbleContent = m.typewriter ? '' : renderContent(m.content||'');
+    }
 
     wrap.innerHTML=`
       <div class="ai-msg-header"><span>${esc(agentLabel)}</span><span style="color:var(--text-dim)">${elapsed}</span></div>
       <div class="msg-bubble">${bubbleContent}</div>
       <div class="ai-msg-footer">
-        <button class="ai-copy-btn" onclick="copyAiMsg(event,this)"><i class="fi fi-rr-copy"></i></button>
+        ${!m.isGeneratedImage ? `<button class="ai-copy-btn" onclick="copyAiMsg(event,this)"><i class="fi fi-rr-copy"></i></button>` : ''}
         <span class="ai-msg-time">${timeStr}</span>
       </div>`;
-    wrap.dataset.text = m.content||'';
+    wrap.dataset.text = m.isGeneratedImage ? '' : (m.content||'');
     msgEl.appendChild(wrap);
 
-    // Apply typing effect and smart auto-scroll
-    if(m.typewriter) {
+    if(m.typewriter && !m.isGeneratedImage) {
       const bubble = wrap.querySelector('.msg-bubble');
       let i = 0;
       const text = m.content || '';
       const ca = document.getElementById('chatArea');
       
       const interval = setInterval(() => {
-        i += 4; // characters per tick (speed)
+        i += 4; 
         bubble.innerHTML = renderContent(text.substring(0, i));
         
-        // Smart Scroll: User ne scroll up nahi kiya h toh niche rakho
         if (ca.scrollHeight - ca.scrollTop - ca.clientHeight < 150) {
             ca.scrollTop = ca.scrollHeight;
         }
@@ -665,7 +707,7 @@ async function sendMessage(){
     incognitoMessages.push(uMsg);
     input.value=''; input.style.height='auto'; clearAttachments(); toggleSend();
     buildMsgEl(uMsg); scrollBottom();
-    await doAIReply(incognitoMessages, null, true);
+    await doAIReply(incognitoMessages, null, true, false);
     return;
   }
 
@@ -682,26 +724,29 @@ async function sendMessage(){
   input.value=''; input.style.height='auto'; clearAttachments(); toggleSend();
   buildMsgEl(uMsg); scrollBottom(); renderChatsList();
 
-  await doAIReply(chat.messages, chat, false);
+  await doAIReply(chat.messages, chat, false, imageMode);
 }
 
-async function doAIReply(messages, chat, isIncognito){
+async function doAIReply(messages, chat, isIncognito, isImageGenMode){
   aiThinking=true; lockSend(true);
   const startMs=Date.now();
   const agentLabel = activeAgent===1 ? AGENT1_LABEL : AGENT2_LABEL;
-  const typing=showTyping();
+  const typing=showTyping(isImageGenMode);
 
   try {
-    const replyText = await callAI(messages);
+    const aiResponse = await callAI(messages, isImageGenMode);
     const elapsed = Math.round((Date.now()-startMs)/1000);
-    const aiMsg = {role:'ai',content:replyText,agent:agentLabel,elapsed,ts:Date.now()};
+    
+    const replyText = aiResponse.reply;
+    const isGeneratedImage = aiResponse.isGeneratedImage || false;
+
+    const aiMsg = {role:'ai',content:replyText,agent:agentLabel,elapsed,ts:Date.now(), isGeneratedImage};
 
     if(isIncognito){ incognitoMessages.push(aiMsg); } 
     else { chat.messages.push(aiMsg); chat.updatedAt=Date.now(); saveChats(); renderChatsList(); }
     
     typing.remove();
-    // Typewriter flag 'true' adds typing animation
-    buildMsgEl({...aiMsg, typewriter: true}); 
+    buildMsgEl({...aiMsg, typewriter: !isGeneratedImage}); 
   } catch(err){
     const errMsg={role:'ai',content:'⚠️ Something went wrong. Please check your API key and try again.',agent:agentLabel,ts:Date.now()};
     if(!isIncognito && chat){ chat.messages.push(errMsg); chat.updatedAt=Date.now(); saveChats(); }
@@ -711,16 +756,22 @@ async function doAIReply(messages, chat, isIncognito){
   aiThinking=false; lockSend(false);
 }
 
-function showTyping(){
+function showTyping(isImage){
   document.getElementById('welcomeScreen').classList.add('hidden');
   const msgEl=document.getElementById('messages');
   const div=document.createElement('div'); div.className='msg ai';
   const agentLabel=activeAgent===1?AGENT1_LABEL:AGENT2_LABEL;
-  div.innerHTML=`<div class="ai-msg-header"><span>${esc(agentLabel)}</span></div><div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
+  
+  let animationHtml = `<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+  if(isImage) {
+      animationHtml = `<div class="sparkle-loading"><i class="fi fi-rr-sparkles"></i></div>`;
+  }
+
+  div.innerHTML=`<div class="ai-msg-header"><span>${esc(agentLabel)}</span></div><div class="msg-bubble">${animationHtml}</div>`;
   msgEl.appendChild(div); scrollBottom(); return div;
 }
 
-async function callAI(messages){
+async function callAI(messages, isImageGen){
   const formatted=messages.map(m=>{
     const parts=[];
     if(m.image){ const b64=m.image.split(',')[1]; const mime=m.image.split(';')[0].split(':')[1]; parts.push({type:'image_url',image_url:{url:`data:${mime};base64,${b64}`}}); }
@@ -735,11 +786,11 @@ async function callAI(messages){
   const res=await fetch('/api/chat',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({messages:formatted, model})
+    body:JSON.stringify({messages:formatted, model, isImageGen})
   });
   if(!res.ok) throw new Error('API '+res.status);
   const data=await res.json();
-  return data.reply;
+  return data;
 }
 
 function lockSend(lock){
@@ -762,7 +813,7 @@ function toggleSend(){
 }
 
 function triggerCamera(){ closePlusMenu(); document.getElementById('camera-input').click(); }
-function triggerImage(){  closePlusMenu(); document.getElementById('image-input').click(); }
+function triggerImageAttach(){  closePlusMenu(); document.getElementById('image-input').click(); }
 function triggerFile(){   closePlusMenu(); document.getElementById('file-input').click(); }
 
 function handleFileAttach(e, type){
@@ -790,7 +841,7 @@ function removeAttachment(i){ attachments.splice(i,1); renderAttachPreviews(); t
 function clearAttachments(){ attachments=[]; renderAttachPreviews(); }
 
 // ════════════════════════════════════════════════
-// MENUS (Agent, Plus, Incognito, Context, Header)
+// MENUS (Agent, Plus, Incognito, ImageMode, Context)
 // ════════════════════════════════════════════════
 function togglePlusMenu(e){
   e.stopPropagation(); const menu=document.getElementById('plusMenu');
@@ -819,6 +870,7 @@ function selectAgent(n){
 }
 
 function toggleIncognito(){
+  if(imageMode) clearImageMode();
   incognitoMode=!incognitoMode;
   const btn=document.getElementById('headerIncognitoBtn');
   const banner=document.getElementById('incognitoBanner');
@@ -827,7 +879,7 @@ function toggleIncognito(){
     document.getElementById('headerNewChatBtn').classList.remove('visible');
     document.getElementById('headerMenuBtn').classList.remove('visible');
     document.getElementById('headerCtxMenu').classList.remove('show');
-    incognitoMessages=[]; document.getElementById('messages').innerHTML=''; showWelcome(true);
+    incognitoMessages=[]; document.getElementById('messages').innerHTML=''; showWelcome('incognito');
   } else { clearIncognito(); }
 }
 function clearIncognito(){
@@ -835,9 +887,36 @@ function clearIncognito(){
   document.getElementById('headerIncognitoBtn').classList.remove('incognito-on');
   document.getElementById('incognitoBanner').classList.remove('show');
   document.getElementById('messages').innerHTML='';
-  if(currentChatId && getCurrentChat()) renderMessages(); else showWelcome(false);
+  if(currentChatId && getCurrentChat()) renderMessages(); else showWelcome('normal');
   updateHeaderBtns();
 }
+
+function toggleImageMode(){
+  if(incognitoMode) clearIncognito();
+  closeAllMenus();
+  imageMode = !imageMode;
+  const btn = document.getElementById('headerImageBtn');
+  const banner = document.getElementById('imageBanner');
+  const plusToggle = document.getElementById('plusMenuImageToggle');
+  
+  if(imageMode){
+    btn.classList.add('image-on'); banner.classList.add('show'); plusToggle.classList.add('on');
+    document.getElementById('headerNewChatBtn').classList.remove('visible');
+    document.getElementById('headerMenuBtn').classList.remove('visible');
+    document.getElementById('headerCtxMenu').classList.remove('show');
+    document.getElementById('messages').innerHTML=''; showWelcome('image');
+  } else { clearImageMode(); }
+}
+function clearImageMode(){
+  imageMode = false;
+  document.getElementById('headerImageBtn').classList.remove('image-on');
+  document.getElementById('imageBanner').classList.remove('show');
+  document.getElementById('plusMenuImageToggle').classList.remove('on');
+  document.getElementById('messages').innerHTML='';
+  if(currentChatId && getCurrentChat()) renderMessages(); else showWelcome('normal');
+  updateHeaderBtns();
+}
+
 window.addEventListener('beforeunload',()=>{ if(incognitoMode){ incognitoMode=false; incognitoMessages=[]; } });
 
 function openCtxMenu(e,id,source){
@@ -871,7 +950,7 @@ function ctxAction(action){
   } else if(action==='archive'){
     const idx=chats.findIndex(c=>c.id===ctxTargetId);
     if(idx!==-1){ const[r]=chats.splice(idx,1); r.archivedAt=Date.now(); archived.unshift(r); saveChats(); saveArchived();
-      if(currentChatId===ctxTargetId){ currentChatId=null; document.getElementById('messages').innerHTML=''; showWelcome(false); updateHeaderBtns(); updateHeaderMenuContent(); } renderChatsList(); }
+      if(currentChatId===ctxTargetId){ currentChatId=null; document.getElementById('messages').innerHTML=''; showWelcome('normal'); updateHeaderBtns(); updateHeaderMenuContent(); } renderChatsList(); }
   } else if(action==='unarchive'){
     const idx=archived.findIndex(c=>c.id===ctxTargetId);
     if(idx!==-1){ const[r]=archived.splice(idx,1); delete r.archivedAt; r.updatedAt=Date.now(); chats.unshift(r); saveChats(); saveArchived(); renderArchiveList(); renderChatsList(); }
@@ -879,13 +958,13 @@ function ctxAction(action){
     if(!confirm(`Delete "${chat.name}"?`)){ closeAllMenus(); return; }
     if(ctxSource==='archived'){ archived=archived.filter(c=>c.id!==ctxTargetId); saveArchived(); renderArchiveList(); }
     else { chats=chats.filter(c=>c.id!==ctxTargetId); saveChats();
-      if(currentChatId===ctxTargetId){ currentChatId=null; document.getElementById('messages').innerHTML=''; showWelcome(false); updateHeaderBtns(); updateHeaderMenuContent(); } renderChatsList(); }
+      if(currentChatId===ctxTargetId){ currentChatId=null; document.getElementById('messages').innerHTML=''; showWelcome('normal'); updateHeaderBtns(); updateHeaderMenuContent(); } renderChatsList(); }
   }
   closeAllMenus();
 }
 
 function updateHeaderBtns(){
-  if(incognitoMode) return;
+  if(incognitoMode || imageMode) return;
   const active=!!(currentChatId&&getCurrentChat());
   document.getElementById('headerNewChatBtn').classList.toggle('visible',active);
   document.getElementById('headerMenuBtn').classList.toggle('visible',active);
@@ -934,7 +1013,7 @@ function closeAllMenus(except){
 document.addEventListener('click',e=>{ if(!e.target.closest('.ctx-menu,.chat-menu-btn,.header-ctx-menu,#headerMenuBtn,.unarchive-btn,.agent-menu,#agentToggleBtn,.plus-menu,#plusBtn')) closeAllMenus(); });
 
 // INIT
-showWelcome(false); updateHeaderBtns(); updateHeaderMenuContent();
+showWelcome('normal'); updateHeaderBtns(); updateHeaderMenuContent();
 </script>
 </body>
 </html>
