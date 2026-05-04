@@ -12,13 +12,13 @@ export default async function handler(req, res) {
 
   // Both agents use gemini-2.5-flash (free tier, works reliably)
   // Agent 2 uses thinking mode for deeper reasoning
-  const AGENT1_MODEL = 'gemini-2.5-flash-preview-05-20';
-  const AGENT2_MODEL = 'gemini-2.5-flash-preview-05-20';
+  const AGENT1_MODEL = 'gemini-2.5-flash';
+  const AGENT2_MODEL = 'gemini-2.5-pro';
   const isAgent2 = model === 'gemini-2.5-pro';
   const selectedModel = isAgent2 ? AGENT2_MODEL : AGENT1_MODEL;
 
   const currentDate = new Date().toLocaleString('en-IN', {
-    timeZone: 'Asia/Kolkata',
+    timeZone: 'Asia/Delhi',
     dateStyle: 'full',
     timeStyle: 'long',
   });
