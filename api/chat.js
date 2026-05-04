@@ -18,7 +18,7 @@ export default async function handler(req, res) {
   const selectedModel = isAgent2 ? AGENT2_MODEL : AGENT1_MODEL;
 
   const currentDate = new Date().toLocaleString('en-IN', {
-    timeZone: 'Asia/Delhi',
+    timeZone: 'Asia/Kolkata',
     dateStyle: 'full',
     timeStyle: 'long',
   });
