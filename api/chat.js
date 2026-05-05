@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'messages array required' });
   }
 
-  const AGENT1_MODEL = 'gemini-2.0-flash';
+  const AGENT1_MODEL = 'gemini-2.5-flash-lite';
   const AGENT2_MODEL = 'gemini-2.5-flash';
 
   const allowedModels = [AGENT1_MODEL, AGENT2_MODEL];
