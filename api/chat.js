@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   }
 
   const AGENT1_MODEL = 'gemini-2.5-flash';
-  const AGENT2_MODEL = 'gemini-2.5-pro';
+  const AGENT2_MODEL = 'gemini-2.5-flash';
 
   const allowedModels = [AGENT1_MODEL, AGENT2_MODEL];
   const selectedModel = allowedModels.includes(model) ? model : AGENT1_MODEL;
