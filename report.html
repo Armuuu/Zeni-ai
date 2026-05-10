@@ -1,27 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 <head>
   <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Report – Zeni</title>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
+  <!-- Theme apply karo page load hone se pehle — flash nahi aayega -->
+  <script>
+    (function() {
+      var theme = localStorage.getItem('zeni_theme') || 'dark';
+      var html  = document.documentElement;
+      if (theme === 'device') {
+        html.setAttribute('data-theme',
+          window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        );
+      } else {
+        html.setAttribute('data-theme', theme);
+      }
+    })();
+  </script>
+
   <style>
-    :root {
+    /* ── DARK THEME (default) ── */
+    [data-theme="dark"] {
       --bg: #141414;
       --surface: #1e1e1e;
       --surface2: #272727;
       --surface3: #323232;
       --border: rgba(255,255,255,0.08);
-      --accent: #EF7722;
-      --accent-dim: rgba(239,119,34,0.12);
-      --accent-glow: rgba(239,119,34,0.25);
       --text: #f0f0f0;
       --text-muted: #888;
       --text-dim: #505050;
+      --intro-p: #c8c8c8;
+      --input-bg: #1e1e1e;
+      --upload-border: rgba(255,255,255,0.13);
+    }
+
+    /* ── LIGHT THEME ── */
+    [data-theme="light"] {
+      --bg: #f5f5f5;
+      --surface: #ffffff;
+      --surface2: #f0f0f0;
+      --surface3: #e5e5e5;
+      --border: rgba(0,0,0,0.08);
+      --text: #1a1a1a;
+      --text-muted: #666;
+      --text-dim: #aaa;
+      --intro-p: #555;
+      --input-bg: #ffffff;
+      --upload-border: rgba(0,0,0,0.13);
+    }
+
+    /* ── ACCENT (same in both) ── */
+    :root {
+      --accent: #EF7722;
+      --accent-dim: rgba(239,119,34,0.12);
+      --accent-glow: rgba(239,119,34,0.25);
       --header-h: 54px;
       --danger: #e05555;
     }
@@ -36,6 +74,7 @@
       color: var(--text);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      transition: background 0.2s, color 0.2s;
     }
 
     /* ── HEADER ── */
@@ -68,7 +107,6 @@
       transition: background 0.15s;
       flex-shrink: 0;
     }
-
     .back:hover { background: var(--surface3); }
 
     header h1 {
@@ -107,7 +145,7 @@
     .intro-card p {
       font-size: 13.5px;
       line-height: 1.65;
-      color: #c8c8c8;
+      color: var(--intro-p);
     }
 
     .intro-card p strong {
@@ -135,7 +173,7 @@
 
     textarea, input[type="text"], input[type="email"] {
       width: 100%;
-      background: var(--surface);
+      background: var(--input-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 14px 16px;
@@ -143,7 +181,7 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 14.5px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, background 0.2s;
       resize: none;
     }
 
@@ -156,7 +194,7 @@
     /* ── IMAGE UPLOAD ── */
     .upload-zone {
       background: var(--surface);
-      border: 1.5px dashed rgba(255,255,255,0.13);
+      border: 1.5px dashed var(--upload-border);
       border-radius: 14px;
       padding: 28px 20px;
       text-align: center;
@@ -289,17 +327,9 @@
       transition: opacity 0.2s, transform 0.15s;
     }
 
-    .submit-btn:hover:not(:disabled) {
-      opacity: 0.92;
-      transform: translateY(-1px);
-    }
-
+    .submit-btn:hover:not(:disabled) { opacity: 0.92; transform: translateY(-1px); }
     .submit-btn:active:not(:disabled) { transform: scale(0.98); }
-
-    .submit-btn:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-    }
+    .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
 
     /* ── SPINNER ── */
     .spinner {
@@ -312,7 +342,6 @@
       display: none;
       flex-shrink: 0;
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ── UPLOAD PROGRESS BAR ── */
@@ -363,11 +392,7 @@
       z-index: 999;
     }
 
-    #toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     #toast.error   { border-color: rgba(224,85,85,0.4); }
     #toast.success { border-color: rgba(72,199,142,0.4); }
 
@@ -388,10 +413,7 @@
       text-align: center;
     }
 
-    #thankyou-overlay.show {
-      opacity: 1;
-      pointer-events: all;
-    }
+    #thankyou-overlay.show { opacity: 1; pointer-events: all; }
 
     .ty-icon {
       width: 72px;
@@ -439,7 +461,6 @@
       cursor: pointer;
       transition: opacity 0.2s, transform 0.15s;
     }
-
     .ty-btn:hover { opacity: 0.9; transform: scale(0.98); }
 
     /* ── CHAR COUNT ── */
@@ -450,9 +471,7 @@
       margin-top: 6px;
       transition: color 0.2s;
     }
-
     .char-count.warn { color: var(--danger); }
-
   </style>
 </head>
 <body>
@@ -506,7 +525,6 @@
         <div class="uz-sub">PNG, JPG, WEBP &nbsp;·&nbsp; Max 3 images</div>
       </div>
       <div id="preview-container"></div>
-      <!-- Progress bar — submit ke waqt dikhega -->
       <div class="upload-progress" id="uploadProgress">
         <div class="upload-progress-bar" id="uploadProgressBar"></div>
       </div>
@@ -550,29 +568,16 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
-
-  /* ════════════════════════════════════════════
-     ⚙️  APNI KEYS YAHAN DAALO
-     ════════════════════════════════════════════ */
   const EMAILJS_PUBLIC_KEY  = "gKIL20Rd04eWUOy2U";
   const EMAILJS_SERVICE_ID  = "service_m007aqs";
   const EMAILJS_TEMPLATE_ID = "template_d6fhrab";
-  const IMGBB_API_KEY       = "28d7c579cff9014da372215bfdb6f93a"; // ← imgbb.com se lo
+  const IMGBB_API_KEY       = "28d7c579cff9014da372215bfdb6f93a";
+  const BACK_URL            = "index.html";
 
-  /* ════════════════════════════════════════════
-     ⚙️  BACK URL
-     ════════════════════════════════════════════ */
-  const BACK_URL = "index.html";
-
-  /* ─── Init EmailJS ─── */
   emailjs.init(EMAILJS_PUBLIC_KEY);
 
-  /* ─── Back button ─── */
-  function goBack() {
-    window.location.href = BACK_URL;
-  }
+  function goBack() { window.location.href = BACK_URL; }
 
-  /* ─── Char counter ─── */
   function updateCharCount() {
     const el  = document.getElementById('issueText');
     const cnt = document.getElementById('charCount');
@@ -581,18 +586,15 @@
     cnt.classList.toggle('warn', len > 1800);
   }
 
-  /* ─── Image upload (local preview) ─── */
-  let uploadedImages = []; // { base64, name }
+  let uploadedImages = [];
 
   function handleImageUpload(event) {
     const files = Array.from(event.target.files);
-
     if (uploadedImages.length + files.length > 3) {
       showToast('Maximum 3 screenshots allowed!', 'error');
       event.target.value = '';
       return;
     }
-
     files.forEach(file => {
       const reader = new FileReader();
       reader.onload = e => {
@@ -601,7 +603,6 @@
       };
       reader.readAsDataURL(file);
     });
-
     event.target.value = '';
   }
 
@@ -609,62 +610,37 @@
     const container = document.getElementById('preview-container');
     container.innerHTML = '';
     uploadedImages.forEach((img, idx) => {
-      const wrap = document.createElement('div');
+      const wrap  = document.createElement('div');
       wrap.className = 'preview-wrap';
-
       const image = document.createElement('img');
       image.src = img.base64;
       image.alt = img.name;
-
       const btn = document.createElement('button');
       btn.className = 'remove-btn';
       btn.type = 'button';
       btn.innerHTML = '✕';
-      btn.onclick = () => {
-        uploadedImages.splice(idx, 1);
-        renderPreviews();
-      };
-
+      btn.onclick = () => { uploadedImages.splice(idx, 1); renderPreviews(); };
       wrap.appendChild(image);
       wrap.appendChild(btn);
       container.appendChild(wrap);
     });
   }
 
-  /* ════════════════════════════════════════════
-     ⚙️  IMGBB UPLOAD — ek image upload karta hai
-     ════════════════════════════════════════════ */
   async function uploadToImgBB(base64) {
-    // "data:image/png;base64,XXXX" se sirf "XXXX" part nikalna hai
     const base64Data = base64.split(',')[1];
-
     const formData = new FormData();
     formData.append('image', base64Data);
-
-    const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-      method: 'POST',
-      body: formData
-    });
-
+    const res  = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: formData });
     const data = await res.json();
-
-    if (data.success) {
-      return data.data.url; // public image URL
-    } else {
-      throw new Error('ImgBB upload failed');
-    }
+    if (data.success) return data.data.url;
+    throw new Error('ImgBB upload failed');
   }
 
-  /* ─── Progress helpers ─── */
   function setProgress(percent, text) {
-    const bar      = document.getElementById('uploadProgressBar');
-    const progress = document.getElementById('uploadProgress');
-    const label    = document.getElementById('uploadStatusText');
-
-    progress.style.display = 'block';
-    label.style.display    = 'block';
-    bar.style.width        = percent + '%';
-    label.textContent      = text;
+    document.getElementById('uploadProgress').style.display    = 'block';
+    document.getElementById('uploadStatusText').style.display  = 'block';
+    document.getElementById('uploadProgressBar').style.width   = percent + '%';
+    document.getElementById('uploadStatusText').textContent    = text;
   }
 
   function hideProgress() {
@@ -673,7 +649,6 @@
     document.getElementById('uploadProgressBar').style.width   = '0%';
   }
 
-  /* ─── Toast ─── */
   let toastTimer;
   function showToast(msg, type = '') {
     const toast = document.getElementById('toast');
@@ -688,12 +663,8 @@
     toastTimer = setTimeout(() => { toast.className = ''; }, 3500);
   }
 
-  /* ════════════════════════════════════════════
-     ─── FORM SUBMIT ───
-     ════════════════════════════════════════════ */
   document.getElementById('reportForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-
     const issueText = document.getElementById('issueText').value.trim();
     const email     = document.getElementById('emailInput').value.trim();
 
@@ -703,39 +674,27 @@
       return;
     }
 
-    /* UI: loading */
     const btn      = document.getElementById('submitBtn');
     const spinner  = document.getElementById('spinner');
     const sendIcon = document.getElementById('sendIcon');
     const btnText  = document.getElementById('btnText');
 
-    btn.disabled           = true;
+    btn.disabled = true;
     spinner.style.display  = 'block';
     sendIcon.style.display = 'none';
     btnText.textContent    = 'Uploading...';
 
-    /* ── Step 1: Screenshots ImgBB pe upload karo ── */
     let screenshotLinks = '';
-
     if (uploadedImages.length > 0) {
       try {
         const urls = [];
         for (let i = 0; i < uploadedImages.length; i++) {
-          // Progress update
-          const percent = Math.round(((i) / uploadedImages.length) * 60);
-          setProgress(percent, `Uploading screenshot ${i + 1} of ${uploadedImages.length}...`);
-
-          const url = await uploadToImgBB(uploadedImages[i].base64);
-          urls.push(url);
+          setProgress(Math.round((i / uploadedImages.length) * 60), `Uploading screenshot ${i + 1} of ${uploadedImages.length}...`);
+          urls.push(await uploadToImgBB(uploadedImages[i].base64));
         }
-
-        // Links text banao email ke liye
         screenshotLinks = urls.map((url, i) => `Screenshot ${i + 1}: ${url}`).join('\n');
         setProgress(70, 'Screenshots uploaded! Sending report...');
-
       } catch (err) {
-        console.error('ImgBB error:', err);
-        // Screenshot upload fail hua toh bhi report bhej do, bas note likh do
         screenshotLinks = 'Screenshots upload failed — user had attached images';
         setProgress(70, 'Screenshot upload failed, sending report anyway...');
       }
@@ -743,7 +702,6 @@
       screenshotLinks = 'No screenshots attached';
     }
 
-    /* ── Step 2: EmailJS se report bhejo ── */
     btnText.textContent = 'Sending...';
     setProgress(85, 'Sending report...');
 
@@ -757,30 +715,22 @@
 
     try {
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
-
       setProgress(100, 'Report sent!');
-
       setTimeout(() => {
         hideProgress();
-        /* Thank you overlay show karo */
         document.getElementById('thankyou-overlay').classList.add('show');
-        /* 4 second baad wapas jao */
         setTimeout(goBack, 4000);
       }, 500);
-
     } catch (err) {
       console.error('EmailJS error:', err);
       hideProgress();
       showToast('Something went wrong. Please try again!', 'error');
-
-      /* Button restore */
-      btn.disabled           = false;
+      btn.disabled = false;
       spinner.style.display  = 'none';
       sendIcon.style.display = '';
       btnText.textContent    = 'Submit Report';
     }
   });
-
 </script>
 </body>
 </html>
