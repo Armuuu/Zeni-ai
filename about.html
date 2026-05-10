@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 <head>
   <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,18 +9,52 @@
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-brands/css/uicons-brands.css'>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
+  <!-- Theme apply karo page load hone se pehle — flash nahi aayega -->
+  <script>
+    (function() {
+      var theme = localStorage.getItem('zeni_theme') || 'dark';
+      var html  = document.documentElement;
+      if (theme === 'device') {
+        html.setAttribute('data-theme',
+          window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        );
+      } else {
+        html.setAttribute('data-theme', theme);
+      }
+    })();
+  </script>
+
   <style>
-    :root {
+    /* ── DARK THEME (default) ── */
+    [data-theme="dark"] {
       --bg: #141414;
       --surface: #1e1e1e;
       --surface2: #272727;
       --surface3: #323232;
       --border: rgba(255,255,255,0.08);
-      --accent: #EF7722;
-      --accent-dim: rgba(239,119,34,0.12);
       --text: #f0f0f0;
       --text-muted: #888;
       --text-dim: #505050;
+      --card-p: #b0b0b0;
+    }
+
+    /* ── LIGHT THEME ── */
+    [data-theme="light"] {
+      --bg: #f5f5f5;
+      --surface: #ffffff;
+      --surface2: #f0f0f0;
+      --surface3: #e5e5e5;
+      --border: rgba(0,0,0,0.08);
+      --text: #1a1a1a;
+      --text-muted: #666;
+      --text-dim: #aaa;
+      --card-p: #555;
+    }
+
+    /* ── ACCENT (same in both) ── */
+    :root {
+      --accent: #EF7722;
+      --accent-dim: rgba(239,119,34,0.12);
       --header-h: 54px;
     }
 
@@ -34,6 +68,7 @@
       color: var(--text);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      transition: background 0.2s, color 0.2s;
     }
 
     ::-webkit-scrollbar { width: 4px; }
@@ -70,7 +105,6 @@
       transition: background 0.15s;
       flex-shrink: 0;
     }
-
     .back:hover { background: var(--surface3); }
 
     header h1 {
@@ -114,6 +148,7 @@
       display: flex;
       align-items: center;
       gap: 9px;
+      color: var(--text);
     }
 
     .card-title .ct-icon {
@@ -132,7 +167,7 @@
 
     .card p {
       font-size: 14px;
-      color: #b0b0b0;
+      color: var(--card-p);
       line-height: 1.75;
     }
 
@@ -144,7 +179,6 @@
       margin-bottom: 14px;
     }
 
-    /* Icon on top, text below */
     .feature-pill {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -250,6 +284,9 @@
 
     /* ── SECTION SPACING ── */
     .section { margin-bottom: 24px; }
+
+    /* Privacy list light mode fix */
+    [data-theme="light"] ul li { color: #555; }
   </style>
 </head>
 <body>
@@ -355,7 +392,7 @@
     </div>
   </div>
 
-  <!-- Privacy Notice — normal card, no yellow -->
+  <!-- Privacy Notice -->
   <div class="section">
     <div class="section-label">Privacy Notice</div>
     <div class="card">
@@ -367,10 +404,10 @@
         Your messages are sent to an external AI model (Gemini via OpenRouter) to generate responses. Your chats do not reach us but the AI provider may use conversation data to improve their models. So please be careful about what you share.
       </p>
       <ul style="margin: 12px 0 0 4px; padding-left: 16px;">
-        <li style="font-size:13.5px; color:#b0b0b0; line-height:1.8; margin-bottom:2px;">Do <strong style="color:var(--text);">not</strong> share passwords, OTPs, or login credentials</li>
-        <li style="font-size:13.5px; color:#b0b0b0; line-height:1.8; margin-bottom:2px;">Do <strong style="color:var(--text);">not</strong> share Aadhaar, PAN, or any ID numbers</li>
-        <li style="font-size:13.5px; color:#b0b0b0; line-height:1.8; margin-bottom:2px;">Do <strong style="color:var(--text);">not</strong> share bank details or financial information</li>
-        <li style="font-size:13.5px; color:#b0b0b0; line-height:1.8;">Do <strong style="color:var(--text);">not</strong> share any sensitive personal data</li>
+        <li style="font-size:13.5px; color:var(--card-p); line-height:1.8; margin-bottom:2px;">Do <strong style="color:var(--text);">not</strong> share passwords, OTPs, or login credentials</li>
+        <li style="font-size:13.5px; color:var(--card-p); line-height:1.8; margin-bottom:2px;">Do <strong style="color:var(--text);">not</strong> share Aadhaar, PAN, or any ID numbers</li>
+        <li style="font-size:13.5px; color:var(--card-p); line-height:1.8; margin-bottom:2px;">Do <strong style="color:var(--text);">not</strong> share bank details or financial information</li>
+        <li style="font-size:13.5px; color:var(--card-p); line-height:1.8;">Do <strong style="color:var(--text);">not</strong> share any sensitive personal data</li>
       </ul>
     </div>
   </div>
@@ -394,14 +431,12 @@
     </a>
   </div>
 </div>
-  
-  <script>
-  
+
+<script>
   const BACK_URL = "index.html";
-  function goBack() {  
-    window.location.href = BACK_URL;  
-  }  
-  
-  </script>
+  function goBack() {
+    window.location.href = BACK_URL;
+  }
+</script>
 </body>
 </html>
