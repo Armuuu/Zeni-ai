@@ -7,6 +7,7 @@
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-chubby/css/uicons-regular-chubby.css'>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     /* ── THEME TOKENS ── */
@@ -60,13 +61,12 @@
     .sidebar-action-btn.primary i{color:var(--accent)}
     .sidebar-action-btn.primary:active{background:var(--accent-dim)}
 
-    /* ── THEME TOGGLE (Vercel style) ── */
-    .theme-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;margin:0 10px;border-radius:10px}
-    .theme-row-label{font-size:14px;color:var(--text)}
-    .theme-switcher{display:flex;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:3px;gap:2px}
-    .theme-btn{width:30px;height:26px;border-radius:6px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:background .15s,color .15s;flex-shrink:0}
-    .theme-btn.active{background:var(--surface);color:var(--accent);box-shadow:0 1px 3px rgba(0,0,0,.15)}
-    [data-theme="light"] .theme-btn.active{background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+    /* ── FIX 3: THEME ROW — same style as other sidebar buttons ── */
+    .theme{display:flex;align-items:center;gap:11px;padding:5px 12px;border:none;background:transparent;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:background .15s;text-align:left;width:100%;text-decoration:none}
+    .theme-switcher{display:flex;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:30px;padding:2px;gap:2px;flex-shrink:0}
+    .theme-btn{width:36px;height:36px;border-radius:50%;border:none;background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;transition:background .15s,color .15s;flex-shrink:0}
+    .theme-btn.active{background:var(--surface);color:var(--text);border:1px solid var(--border);}
+    [data-theme="light"] .theme-btn.active{background:#fff;border:1px solid var(--border);}
 
     .sidebar-divider{height:1px;background:var(--border);margin:6px 14px;flex-shrink:0}
     .search-wrap{padding:8px 10px 4px;flex-shrink:0}
@@ -99,7 +99,7 @@
     .header-ctx-menu{position:fixed;top:calc(var(--header-h) + 5px);right:10px;background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:6px;min-width:195px;max-width:195px;z-index:500;box-shadow:0 10px 36px rgba(0,0,0,.18);opacity:0;transform:scale(.93) translateY(-4px);pointer-events:none;transition:opacity .14s,transform .14s;transform-origin:top right}
     [data-theme="dark"] .header-ctx-menu{background:var(--surface2);box-shadow:0 10px 36px rgba(0,0,0,.5)}
     .header-ctx-menu.show{opacity:1;transform:scale(1) translateY(0);pointer-events:all}
-    .ctx-divider{height:1px;background:var(--border);margin:4px 8px}
+    .ctx-divider{height:1px;b1wackground:var(--border);margin:4px 8px}
 
     /* Agent menu */
     .agent-menu{position:fixed;background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:6px;min-width:230px;z-index:500;box-shadow:0 10px 36px rgba(0,0,0,.18);opacity:0;transform:scale(.93) translateY(6px);pointer-events:none;transition:opacity .14s,transform .14s;transform-origin:bottom left}
@@ -156,12 +156,13 @@
 
     /* ── MESSAGES ── */
     .messages{display:flex;flex-direction:column;gap:16px}
-    .msg{display:flex;flex-direction:column;max-width:88%;animation:msgIn .2s ease}
+    /* FIX 2: max-width reduced so code blocks don't overflow screen */
+    .msg{display:flex;flex-direction:column;max-width:92%;animation:msgIn .2s ease}
     @keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
     .msg.user{align-self:flex-end;align-items:flex-end}.msg.ai{align-self:flex-start;align-items:flex-start}
     .ai-msg-header{font-size:11px;color:var(--text-dim);margin-bottom:4px;padding-left:2px;display:flex;align-items:center;gap:4px}
     .ai-msg-header span{color:var(--accent);font-weight:600}
-    .msg-bubble{padding:10px 14px;border-radius:16px;font-size:14.5px;line-height:1.7;word-break:break-word}
+    .msg-bubble{padding:10px 14px;border-radius:16px;font-size:14.5px;line-height:1.7;word-break:break-word;overflow:hidden}
     .msg.user .msg-bubble{background:var(--user-bubble);color:var(--text);border:1px solid var(--user-border);border-bottom-right-radius:4px;cursor:pointer}
     .msg.ai .msg-bubble{background:var(--ai-bubble);color:var(--text);border:1px solid var(--border);border-bottom-left-radius:4px}
     [data-theme="light"] .msg.ai .msg-bubble{box-shadow:0 1px 4px rgba(0,0,0,.06)}
@@ -180,8 +181,8 @@
     .ai-copy-btn:active{background:var(--surface3);color:var(--text)}
     .ai-msg-time{font-size:11px;color:var(--text-dim)}
 
-    /* Code blocks */
-    .code-block{background:#0d0d0d;border:1px solid rgba(255,255,255,.08);border-radius:10px;margin:8px 0;overflow:hidden}
+    /* FIX 2: Code blocks — contained, scrollable, never overflow */
+    .code-block{background:#0d0d0d;border:1px solid rgba(255,255,255,.08);border-radius:10px;margin:8px 0;overflow:hidden;max-width:100%}
     [data-theme="light"] .code-block{background:#1e1e1e}
     .code-block-header{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.08);background:#111}
     [data-theme="light"] .code-block-header{background:#161616}
@@ -189,8 +190,9 @@
     .code-lang i{font-size:13px;color:var(--accent)}
     .code-copy-btn{font-size:12px;color:#888;background:transparent;border:none;cursor:pointer;padding:3px 8px;border-radius:6px;font-family:'DM Sans',sans-serif;transition:background .12s,color .12s;display:flex;align-items:center;gap:4px}
     .code-copy-btn:active{background:rgba(255,255,255,.1);color:#fff}
-    pre{margin:0;padding:12px;overflow-x:auto;font-size:13px;line-height:1.6}
-    pre code{font-family:'Courier New',monospace;color:#e8e8e8;white-space:pre}
+    /* FIX 2: pre scrolls horizontally inside bubble, never pushes width */
+    pre{margin:0;padding:12px;overflow-x:auto;font-size:13px;line-height:1.6;max-width:100%}
+    pre code{font-family:'Courier New',monospace;color:#e8e8e8;white-space:pre;display:block}
 
     /* Typing indicator */
     .typing-indicator{display:flex;align-items:center;gap:5px;padding:3px 0}
@@ -256,18 +258,19 @@
       <a class="sidebar-action-btn" href="about.html">
         <i class="fi fi-rr-info"></i> About
       </a>
-      <!-- Theme toggle -->
-      <div class="theme-row">
-        <span class="theme-row-label">Theme</span>
+      <!-- FIX 3: Theme row as sidebar-action-btn — icon + label + toggle in one line -->
+      <div class="theme">
+        <i class="fi fi-rr-palette"></i>
+        <span style="flex:1;font-size:14px;">Theme</span>
         <div class="theme-switcher">
           <button class="theme-btn" id="themeDevice" onclick="setTheme('device')" title="System">
-            <i class="fi fi-rr-computer"></i>
+            <i class="fi fi-rr-mobile-notch"></i>
           </button>
           <button class="theme-btn" id="themeLight" onclick="setTheme('light')" title="Light">
-            <i class="fi fi-rr-sun"></i>
+            <i class="fi fi-rr-brightness"></i>
           </button>
           <button class="theme-btn active" id="themeDark" onclick="setTheme('dark')" title="Dark">
-            <i class="fi fi-rr-moon"></i>
+            <i class="fi fi-rc-moon-stars"></i>
           </button>
         </div>
       </div>
@@ -383,7 +386,7 @@
         </div>
       </div>
       <div class="disclaimer">
-        Zeni isn't human — please double check answers. <a href="about.html">Learn more</a>
+        Zeni isn't human and can mistake – please double check the answers. <a href="about.html">Learn more</a>
       </div>
     </div>
     <input type="file" id="camera-input" accept="image/*" capture="environment" onchange="handleFileAttach(event,'image')">
@@ -415,6 +418,8 @@ let aiThinking        = false;
 let activeAgent       = 1;
 let incognitoMode     = false;
 let incognitoMessages = [];
+// FIX 1: Track if we're viewing an archived chat (read-only view vs live)
+let viewingArchivedId = null;
 
 // ════════════════════════════════════════════════
 // PERSIST & UTILS
@@ -458,7 +463,6 @@ function initTheme(){
   document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
   const el=document.getElementById(id);
   if(el) el.classList.add('active');
-  // Watch system changes for device mode
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{
     if(localStorage.getItem('zeni_theme')==='device') applyTheme('device');
   });
@@ -566,6 +570,7 @@ function filterChats(val){ renderChatsList(val); }
 
 function newChat(){
   if(incognitoMode){ clearIncognito(); return; }
+  viewingArchivedId=null;
   pendingChatId=genId(); currentChatId=null;
   document.getElementById('messages').innerHTML='';
   showWelcome(false); updateHeaderBtns(); renderChatsList(); closeSidebar(); closeAllMenus();
@@ -573,6 +578,7 @@ function newChat(){
 }
 function openChat(id){
   if(incognitoMode) return;
+  viewingArchivedId=null;
   pendingChatId=null; currentChatId=id;
   renderMessages(); renderChatsList(); updateHeaderBtns(); updateHeaderMenuContent(); closeSidebar();
 }
@@ -629,13 +635,12 @@ function buildMsgEl(m, typewriterText){
   return wrap;
 }
 
-// Smooth typewriter — chunk-based, smooth scroll
 function runTypewriter(bubble, text){
   bubble.classList.add('typewriter-cursor');
   bubble.innerHTML='';
   let i=0;
   const ca=document.getElementById('chatArea');
-  const CHUNK=3; // chars per frame
+  const CHUNK=3;
   function tick(){
     if(i>=text.length){
       bubble.classList.remove('typewriter-cursor');
@@ -668,7 +673,9 @@ function scrollBottom(){ const ca=document.getElementById('chatArea'); requestAn
 // EXPORT CHAT AS PDF
 // ════════════════════════════════════════════════
 function exportChat(id){
-  const chat=chats.find(c=>c.id===id); if(!chat||!chat.messages?.length) return;
+  // Look in both chats and archived
+  const chat=chats.find(c=>c.id===id)||archived.find(c=>c.id===id);
+  if(!chat||!chat.messages?.length) return;
   const lines=[];
   lines.push(`ZENI CHAT EXPORT`);
   lines.push(`Chat: ${chat.name}`);
@@ -682,11 +689,9 @@ function exportChat(id){
     lines.push('');
   });
   const content=lines.join('\n');
-  // Use print as PDF — most reliable cross-platform approach
   const w=window.open('','_blank');
   w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${chat.name}</title><style>body{font-family:Arial,sans-serif;font-size:13px;line-height:1.7;padding:32px;color:#111;white-space:pre-wrap}h1{font-size:16px;margin-bottom:4px}p{color:#666;font-size:12px;margin-bottom:20px}hr{border:none;border-top:1px solid #ddd;margin:12px 0}@media print{@page{margin:20mm}}</style></head><body><h1>${esc(chat.name)}</h1><p>Exported from Zeni · ${new Date().toLocaleString('en-IN')}</p><hr>${content.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</body></html>`);
-  w.document.close();
-  w.focus();
+  w.document.close(); w.focus();
   setTimeout(()=>{ w.print(); },400);
   closeAllMenus();
 }
@@ -708,6 +713,18 @@ async function sendMessage(){
     input.value=''; input.style.height='auto'; clearAttachments(); toggleSend();
     buildMsgEl(uMsg); scrollBottom();
     await doAIReply(incognitoMessages,null,true); return;
+  }
+
+  // FIX 1: If viewing archived chat — unarchive it first, then send message into it
+  if(viewingArchivedId){
+    const idx=archived.findIndex(c=>c.id===viewingArchivedId);
+    if(idx!==-1){
+      const[r]=archived.splice(idx,1);
+      delete r.archivedAt; r.updatedAt=Date.now();
+      chats.unshift(r); saveChats(); saveArchived();
+      currentChatId=r.id; viewingArchivedId=null;
+      updateHeaderBtns(); updateHeaderMenuContent(); renderChatsList();
+    }
   }
 
   if(!currentChatId){
@@ -736,7 +753,7 @@ async function doAIReply(messages,chat,isIncognito){
     if(isIncognito){ incognitoMessages.push(aiMsg); }
     else { chat.messages.push(aiMsg); chat.updatedAt=Date.now(); saveChats(); renderChatsList(); }
     typing.remove();
-    buildMsgEl(aiMsg, replyText); // typewriter
+    buildMsgEl(aiMsg, replyText);
     scrollBottom();
   } catch(err){
     const errMsg={role:'ai',content:`⚠️ ${err.message||'Something went wrong. Please try again.'}`,agent:agentLabel,ts:Date.now()};
@@ -873,6 +890,7 @@ function openCtxMenu(e,id,source){
     html+=`<button class="ctx-item" onclick="exportChat('${id}')"><i class="fi fi-rr-file-export"></i> Export PDF</button>`;
   } else {
     html+=`<button class="ctx-item" onclick="ctxAction('unarchive')"><i class="fi fi-rr-arrow-up-from-square"></i> Unarchive</button>`;
+    html+=`<button class="ctx-item" onclick="exportChat('${id}')"><i class="fi fi-rr-file-export"></i> Export PDF</button>`;
   }
   html+=`<button class="ctx-item danger" onclick="ctxAction('delete')"><i class="fi fi-rr-trash"></i> Delete</button>`;
   menu.innerHTML=html;
@@ -892,7 +910,7 @@ function ctxAction(action){
   } else if(action==='archive'){
     const idx=chats.findIndex(c=>c.id===ctxTargetId);
     if(idx!==-1){ const[r]=chats.splice(idx,1); r.archivedAt=Date.now(); archived.unshift(r); saveChats(); saveArchived();
-      if(currentChatId===ctxTargetId){ currentChatId=null; document.getElementById('messages').innerHTML=''; showWelcome(false); updateHeaderBtns(); updateHeaderMenuContent(); } renderChatsList(); }
+      if(currentChatId===ctxTargetId){ currentChatId=null; viewingArchivedId=null; document.getElementById('messages').innerHTML=''; showWelcome(false); updateHeaderBtns(); updateHeaderMenuContent(); } renderChatsList(); }
   } else if(action==='unarchive'){
     const idx=archived.findIndex(c=>c.id===ctxTargetId);
     if(idx!==-1){ const[r]=archived.splice(idx,1); delete r.archivedAt; r.updatedAt=Date.now(); chats.unshift(r); saveChats(); saveArchived(); renderArchiveList(); renderChatsList(); }
@@ -900,7 +918,7 @@ function ctxAction(action){
     if(!confirm(`Delete "${chat.name}"?`)){ closeAllMenus(); return; }
     if(ctxSource==='archived'){ archived=archived.filter(c=>c.id!==ctxTargetId); saveArchived(); renderArchiveList(); }
     else { chats=chats.filter(c=>c.id!==ctxTargetId); saveChats();
-      if(currentChatId===ctxTargetId){ currentChatId=null; document.getElementById('messages').innerHTML=''; showWelcome(false); updateHeaderBtns(); updateHeaderMenuContent(); } renderChatsList(); }
+      if(currentChatId===ctxTargetId){ currentChatId=null; viewingArchivedId=null; document.getElementById('messages').innerHTML=''; showWelcome(false); updateHeaderBtns(); updateHeaderMenuContent(); } renderChatsList(); }
   }
   closeAllMenus();
 }
@@ -938,21 +956,35 @@ function renderArchiveList(){
   if(!archived.length){ list.innerHTML=`<li style="padding:24px 14px;text-align:center;color:var(--text-dim);font-size:13px;">No archived chats.</li>`; return; }
   archived.forEach(c=>{
     const li=document.createElement('li'); li.className='archive-item';
-    li.innerHTML=`<div class="archive-info" onclick="restoreAndOpen('${c.id}')"><div class="archive-name">${esc(c.name)}</div><div class="archive-date">${formatDate(c.updatedAt)}</div></div><button class="unarchive-btn" onclick="quickUnarchive('${c.id}')"><i class="fi fi-rr-arrow-up-from-square"></i></button><button class="chat-menu-btn" onclick="openCtxMenu(event,'${c.id}','archived')"><i class="fi fi-rr-menu-dots-vertical"></i></button>`;
+    li.innerHTML=`<div class="archive-info" onclick="openArchivedChat('${c.id}')"><div class="archive-name">${esc(c.name)}</div><div class="archive-date">${formatDate(c.updatedAt)}</div></div><button class="unarchive-btn" onclick="quickUnarchive('${c.id}')"><i class="fi fi-rr-arrow-up-from-square"></i></button><button class="chat-menu-btn" onclick="openCtxMenu(event,'${c.id}','archived')"><i class="fi fi-rr-menu-dots-vertical"></i></button>`;
     list.appendChild(li);
   });
 }
 function quickUnarchive(id){ ctxTargetId=id; ctxSource='archived'; ctxAction('unarchive'); }
-function restoreAndOpen(id){
+
+// FIX 1: openArchivedChat — sets viewingArchivedId so sendMessage knows this is archived
+function openArchivedChat(id){
   const chat=archived.find(c=>c.id===id); if(!chat) return;
   document.getElementById('archivePanel').classList.remove('open');
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('chatsBtn').classList.remove('active'); hideOverlay();
-  currentChatId=null; document.getElementById('welcomeScreen').classList.add('hidden');
+  // Set state — not in regular chats, but user can send messages (auto-unarchive on send)
+  currentChatId=null;
+  viewingArchivedId=id;
+  document.getElementById('welcomeScreen').classList.add('hidden');
   document.getElementById('messages').innerHTML='';
   (chat.messages||[]).forEach(m=>buildMsgEl(m)); scrollBottom();
-  document.getElementById('headerNewChatBtn').classList.remove('visible');
-  document.getElementById('headerMenuBtn').classList.remove('visible');
+  // Show header buttons — treat like active chat for UI
+  document.getElementById('headerNewChatBtn').classList.add('visible');
+  document.getElementById('headerMenuBtn').classList.add('visible');
+  document.querySelectorAll('.header-grp-a').forEach(el=>el.classList.add('hidden-btn'));
+  // Update header menu for archived chat
+  const menu=document.getElementById('headerCtxMenu');
+  menu.innerHTML=`<div class="ctx-label">${esc(chat.name)}</div>
+    <button class="ctx-item" onclick="quickUnarchive('${id}');closeAllMenus()"><i class="fi fi-rr-arrow-up-from-square"></i> Unarchive</button>
+    <button class="ctx-item" onclick="exportChat('${id}')"><i class="fi fi-rr-file-export"></i> Export PDF</button>
+    <div class="ctx-divider"></div>
+    <button class="ctx-item" onclick="newChat()"><i class="fi fi-rr-comment-medical"></i> New Chat</button>`;
 }
 
 function closeAllMenus(except){
