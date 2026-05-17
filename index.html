@@ -61,7 +61,6 @@
     .sidebar-action-btn.primary i{color:var(--accent)}
     .sidebar-action-btn.primary:active{background:var(--accent-dim)}
 
-    /* ── FIX 3: THEME ROW — same style as other sidebar buttons ── */
     .theme{display:flex;align-items:center;gap:11px;padding:5px 12px;border:none;background:transparent;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:background .15s;text-align:left;width:100%;text-decoration:none}
     .theme-switcher{display:flex;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:30px;padding:2px;gap:2px;flex-shrink:0}
     .theme-btn{width:36px;height:36px;border-radius:50%;border:none;background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;transition:background .15s,color .15s;flex-shrink:0}
@@ -99,7 +98,7 @@
     .header-ctx-menu{position:fixed;top:calc(var(--header-h) + 5px);right:10px;background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:6px;min-width:195px;max-width:195px;z-index:500;box-shadow:0 10px 36px rgba(0,0,0,.18);opacity:0;transform:scale(.93) translateY(-4px);pointer-events:none;transition:opacity .14s,transform .14s;transform-origin:top right}
     [data-theme="dark"] .header-ctx-menu{background:var(--surface2);box-shadow:0 10px 36px rgba(0,0,0,.5)}
     .header-ctx-menu.show{opacity:1;transform:scale(1) translateY(0);pointer-events:all}
-    .ctx-divider{height:1px;b1wackground:var(--border);margin:4px 8px}
+    .ctx-divider{height:1px;background:var(--border);margin:4px 8px}
 
     /* Agent menu */
     .agent-menu{position:fixed;background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:6px;min-width:230px;z-index:500;box-shadow:0 10px 36px rgba(0,0,0,.18);opacity:0;transform:scale(.93) translateY(6px);pointer-events:none;transition:opacity .14s,transform .14s;transform-origin:bottom left}
@@ -156,7 +155,6 @@
 
     /* ── MESSAGES ── */
     .messages{display:flex;flex-direction:column;gap:16px}
-    /* FIX 2: max-width reduced so code blocks don't overflow screen */
     .msg{display:flex;flex-direction:column;max-width:92%;animation:msgIn .2s ease}
     @keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
     .msg.user{align-self:flex-end;align-items:flex-end}.msg.ai{align-self:flex-start;align-items:flex-start}
@@ -181,7 +179,6 @@
     .ai-copy-btn:active{background:var(--surface3);color:var(--text)}
     .ai-msg-time{font-size:11px;color:var(--text-dim)}
 
-    /* FIX 2: Code blocks — contained, scrollable, never overflow */
     .code-block{background:#0d0d0d;border:1px solid rgba(255,255,255,.08);border-radius:10px;margin:8px 0;overflow:hidden;max-width:100%}
     [data-theme="light"] .code-block{background:#1e1e1e}
     .code-block-header{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.08);background:#111}
@@ -190,11 +187,9 @@
     .code-lang i{font-size:13px;color:var(--accent)}
     .code-copy-btn{font-size:12px;color:#888;background:transparent;border:none;cursor:pointer;padding:3px 8px;border-radius:6px;font-family:'DM Sans',sans-serif;transition:background .12s,color .12s;display:flex;align-items:center;gap:4px}
     .code-copy-btn:active{background:rgba(255,255,255,.1);color:#fff}
-    /* FIX 2: pre scrolls horizontally inside bubble, never pushes width */
     pre{margin:0;padding:12px;overflow-x:auto;font-size:13px;line-height:1.6;max-width:100%}
     pre code{font-family:'Courier New',monospace;color:#e8e8e8;white-space:pre;display:block}
 
-    /* Typing indicator */
     .typing-indicator{display:flex;align-items:center;gap:5px;padding:3px 0}
     .typing-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:tDot 1.2s ease-in-out infinite}
     .typing-dot:nth-child(2){animation-delay:.2s}.typing-dot:nth-child(3){animation-delay:.4s}
@@ -227,13 +222,9 @@
     .send-btn.enabled{opacity:1;pointer-events:all}.send-btn.enabled:active{transform:scale(.93)}
     .send-btn.locked{opacity:.3!important;pointer-events:none!important}
 
-    /* Disclaimer */
     .disclaimer{padding:5px 14px 10px;text-align:center;font-size:11.5px;color:var(--disclaimer-color)}
     .disclaimer a{color:var(--accent);text-decoration:none}
-
     #camera-input,#image-input,#file-input{display:none}
-
-    /* Smooth typewriter cursor */
     .typewriter-cursor::after{content:'▋';animation:blink .7s step-end infinite;font-size:13px;color:var(--accent);margin-left:1px}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
   </style>
@@ -258,7 +249,6 @@
       <a class="sidebar-action-btn" href="about.html">
         <i class="fi fi-rr-info"></i> About
       </a>
-      <!-- FIX 3: Theme row as sidebar-action-btn — icon + label + toggle in one line -->
       <div class="theme">
         <i class="fi fi-rr-palette"></i>
         <span style="flex:1;font-size:14px;">Theme</span>
@@ -396,17 +386,11 @@
 </div>
 
 <script>
-// ════════════════════════════════════════════════
-// MODELS
-// ════════════════════════════════════════════════
 const AGENT1_MODEL = "gemini-2.5-flash-lite";
 const AGENT2_MODEL = "gemini-2.5-flash";
 const AGENT1_LABEL = "Agent 1";
 const AGENT2_LABEL = "Agent 2";
 
-// ════════════════════════════════════════════════
-// STATE
-// ════════════════════════════════════════════════
 let chats             = JSON.parse(localStorage.getItem('zeni_chats')    || '[]');
 let archived          = JSON.parse(localStorage.getItem('zeni_archived') || '[]');
 let currentChatId     = null;
@@ -418,12 +402,8 @@ let aiThinking        = false;
 let activeAgent       = 1;
 let incognitoMode     = false;
 let incognitoMessages = [];
-// FIX 1: Track if we're viewing an archived chat (read-only view vs live)
 let viewingArchivedId = null;
 
-// ════════════════════════════════════════════════
-// PERSIST & UTILS
-// ════════════════════════════════════════════════
 const saveChats    = () => localStorage.setItem('zeni_chats',    JSON.stringify(chats));
 const saveArchived = () => localStorage.setItem('zeni_archived', JSON.stringify(archived));
 const getCurrentChat = () => chats.find(c => c.id === currentChatId) || null;
@@ -438,39 +418,27 @@ function formatDate(ts){
   return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
 }
 
-// ════════════════════════════════════════════════
-// THEME
-// ════════════════════════════════════════════════
 function applyTheme(theme){
   const html=document.documentElement;
   if(theme==='device'){
-    const prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;
-    html.setAttribute('data-theme', prefersDark?'dark':'light');
-  } else {
-    html.setAttribute('data-theme', theme);
-  }
+    html.setAttribute('data-theme', window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  } else { html.setAttribute('data-theme', theme); }
 }
 function setTheme(theme){
-  localStorage.setItem('zeni_theme', theme);
-  applyTheme(theme);
+  localStorage.setItem('zeni_theme', theme); applyTheme(theme);
   document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('theme'+theme.charAt(0).toUpperCase()+theme.slice(1)).classList.add('active');
 }
 function initTheme(){
-  const saved=localStorage.getItem('zeni_theme')||'dark';
-  applyTheme(saved);
+  const saved=localStorage.getItem('zeni_theme')||'dark'; applyTheme(saved);
   const id='theme'+saved.charAt(0).toUpperCase()+saved.slice(1);
   document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
-  const el=document.getElementById(id);
-  if(el) el.classList.add('active');
+  const el=document.getElementById(id); if(el) el.classList.add('active');
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{
     if(localStorage.getItem('zeni_theme')==='device') applyTheme('device');
   });
 }
 
-// ════════════════════════════════════════════════
-// MARKDOWN + CODE RENDERING
-// ════════════════════════════════════════════════
 function renderContent(text){
   let html='';
   const parts=text.split(/(```[\s\S]*?```)/g);
@@ -481,11 +449,7 @@ function renderContent(text){
       const code=lines.slice(1).join('\n');
       html+=`<div class="code-block"><div class="code-block-header"><span class="code-lang"><i class="${langIcon(lang)}"></i>${esc(lang)}</span><button class="code-copy-btn" onclick="copyCode(this)"><i class="fi fi-rr-copy"></i></button></div><pre><code>${esc(code)}</code></pre></div>`;
     } else {
-      let t=esc(part)
-        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-        .replace(/\*(.+?)\*/g,'<em>$1</em>')
-        .replace(/`([^`]+)`/g,'<code style="background:var(--surface3);padding:1px 5px;border-radius:4px;font-size:13px">$1</code>')
-        .replace(/\n/g,'<br>');
+      let t=esc(part).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/`([^`]+)`/g,'<code style="background:var(--surface3);padding:1px 5px;border-radius:4px;font-size:13px">$1</code>').replace(/\n/g,'<br>');
       html+=t;
     }
   });
@@ -504,14 +468,10 @@ function langIcon(lang){
 function copyCode(btn){
   const code=btn.closest('.code-block').querySelector('code').textContent;
   navigator.clipboard.writeText(code).then(()=>{
-    btn.innerHTML='<i class="fi fi-rr-check"></i>';
-    setTimeout(()=>{ btn.innerHTML='<i class="fi fi-rr-copy"></i>'; },1500);
+    btn.innerHTML='<i class="fi fi-rr-check"></i>'; setTimeout(()=>{ btn.innerHTML='<i class="fi fi-rr-copy"></i>'; },1500);
   });
 }
 
-// ════════════════════════════════════════════════
-// OVERLAY & SIDEBAR
-// ════════════════════════════════════════════════
 const showOverlay=()=>document.getElementById('overlay').classList.add('show');
 const hideOverlay=()=>document.getElementById('overlay').classList.remove('show');
 function handleOverlayClick(){
@@ -535,9 +495,6 @@ function closeArchivePanelOnly(){
   document.getElementById('chatsBtn').classList.add('active'); showOverlay();
 }
 
-// ════════════════════════════════════════════════
-// CHATS LIST
-// ════════════════════════════════════════════════
 function renderChatsList(filter=''){
   const list=document.getElementById('chatsList'); list.innerHTML='';
   const q=filter.toLowerCase();
@@ -599,9 +556,6 @@ function showWelcome(incognito){
   }
 }
 
-// ════════════════════════════════════════════════
-// RENDER MESSAGES
-// ════════════════════════════════════════════════
 function renderMessages(){
   const chat=getCurrentChat();
   const msgEl=document.getElementById('messages'); msgEl.innerHTML='';
@@ -614,7 +568,6 @@ function buildMsgEl(m, typewriterText){
   document.getElementById('welcomeScreen').classList.add('hidden');
   const msgEl=document.getElementById('messages');
   const wrap=document.createElement('div'); wrap.className=`msg ${m.role}`;
-
   if(m.role==='user'){
     let content='';
     if(m.image) content+=`<img class="chat-img" src="${m.image}" alt="">`;
@@ -636,18 +589,11 @@ function buildMsgEl(m, typewriterText){
 }
 
 function runTypewriter(bubble, text){
-  bubble.classList.add('typewriter-cursor');
-  bubble.innerHTML='';
-  let i=0;
-  const ca=document.getElementById('chatArea');
-  const CHUNK=3;
+  bubble.classList.add('typewriter-cursor'); bubble.innerHTML='';
+  let i=0; const ca=document.getElementById('chatArea'); const CHUNK=3;
   function tick(){
-    if(i>=text.length){
-      bubble.classList.remove('typewriter-cursor');
-      bubble.innerHTML=renderContent(text); return;
-    }
-    i=Math.min(i+CHUNK,text.length);
-    bubble.innerHTML=renderContent(text.substring(0,i));
+    if(i>=text.length){ bubble.classList.remove('typewriter-cursor'); bubble.innerHTML=renderContent(text); return; }
+    i=Math.min(i+CHUNK,text.length); bubble.innerHTML=renderContent(text.substring(0,i));
     if(ca.scrollHeight-ca.scrollTop-ca.clientHeight<180) ca.scrollTop=ca.scrollHeight;
     requestAnimationFrame(tick);
   }
@@ -669,40 +615,33 @@ function copyAiMsg(e,btn){
 }
 function scrollBottom(){ const ca=document.getElementById('chatArea'); requestAnimationFrame(()=>{ ca.scrollTop=ca.scrollHeight; }); }
 
-// ════════════════════════════════════════════════
-// EXPORT CHAT AS PDF
-// ════════════════════════════════════════════════
 function exportChat(id){
-  // Look in both chats and archived
   const chat=chats.find(c=>c.id===id)||archived.find(c=>c.id===id);
   if(!chat||!chat.messages?.length) return;
   const lines=[];
-  lines.push(`ZENI CHAT EXPORT`);
-  lines.push(`Chat: ${chat.name}`);
-  lines.push(`Exported: ${new Date().toLocaleString('en-IN')}`);
-  lines.push(`${'─'.repeat(50)}\n`);
+  lines.push(`ZENI CHAT EXPORT`); lines.push(`Chat: ${chat.name}`);
+  lines.push(`Exported: ${new Date().toLocaleString('en-IN')}`); lines.push(`${'─'.repeat(50)}\n`);
   chat.messages.forEach(m=>{
     const who=m.role==='user'?'You':m.agent||'Zeni';
-    const time=fmtTime(m.ts||Date.now());
-    lines.push(`[${who}]  ${time}`);
-    if(m.content) lines.push(m.content);
-    lines.push('');
+    lines.push(`[${who}]  ${fmtTime(m.ts||Date.now())}`);
+    if(m.content) lines.push(m.content); lines.push('');
   });
   const content=lines.join('\n');
   const w=window.open('','_blank');
   w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${chat.name}</title><style>body{font-family:Arial,sans-serif;font-size:13px;line-height:1.7;padding:32px;color:#111;white-space:pre-wrap}h1{font-size:16px;margin-bottom:4px}p{color:#666;font-size:12px;margin-bottom:20px}hr{border:none;border-top:1px solid #ddd;margin:12px 0}@media print{@page{margin:20mm}}</style></head><body><h1>${esc(chat.name)}</h1><p>Exported from Zeni · ${new Date().toLocaleString('en-IN')}</p><hr>${content.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</body></html>`);
-  w.document.close(); w.focus();
-  setTimeout(()=>{ w.print(); },400);
-  closeAllMenus();
+  w.document.close(); w.focus(); setTimeout(()=>{ w.print(); },400); closeAllMenus();
 }
 
 // ════════════════════════════════════════════════
 // SEND MESSAGE
+// BUG FIX 1: viewingArchivedId — message archived chat mein hi save hoga, auto-unarchive nahi hoga
+// BUG FIX 2: image attachment wala send button fix — attachments.length check sahi kiya
 // ════════════════════════════════════════════════
 async function sendMessage(){
   const input=document.getElementById('msg-input');
   const text=input.value.trim();
-  if((!text&&!attachments.length)||aiThinking) return;
+  // BUG FIX 2: attachments.length > 0 explicit check
+  if((!text && attachments.length===0) || aiThinking) return;
   const now=Date.now();
   const imgAtt=attachments.find(a=>a.type==='image');
   const fileAtt=attachments.find(a=>a.type==='file');
@@ -715,16 +654,18 @@ async function sendMessage(){
     await doAIReply(incognitoMessages,null,true); return;
   }
 
-  // FIX 1: If viewing archived chat — unarchive it first, then send message into it
+  // BUG FIX 1: If viewing archived chat — save message IN archived chat, do NOT unarchive
   if(viewingArchivedId){
-    const idx=archived.findIndex(c=>c.id===viewingArchivedId);
-    if(idx!==-1){
-      const[r]=archived.splice(idx,1);
-      delete r.archivedAt; r.updatedAt=Date.now();
-      chats.unshift(r); saveChats(); saveArchived();
-      currentChatId=r.id; viewingArchivedId=null;
-      updateHeaderBtns(); updateHeaderMenuContent(); renderChatsList();
+    const archivedChat=archived.find(c=>c.id===viewingArchivedId);
+    if(archivedChat){
+      const uMsg={role:'user',content:text,image:imgAtt?`data:${imgAtt.mime};base64,${imgAtt.base64}`:null,fileChip:fileAtt?{name:fileAtt.name,type:fileAtt.mime}:null,fileData:fileAtt||null,ts:now};
+      archivedChat.messages.push(uMsg); archivedChat.updatedAt=now; saveArchived();
+      input.value=''; input.style.height='auto'; clearAttachments(); toggleSend();
+      buildMsgEl(uMsg); scrollBottom();
+      // AI reply also saved in archived chat
+      await doAIReplyArchived(archivedChat.messages, archivedChat);
     }
+    return;
   }
 
   if(!currentChatId){
@@ -741,6 +682,26 @@ async function sendMessage(){
   await doAIReply(chat.messages,chat,false);
 }
 
+// AI reply for archived chat — saves in archived, does NOT move to regular chats
+async function doAIReplyArchived(messages, archivedChat){
+  aiThinking=true; lockSend(true);
+  const startMs=Date.now();
+  const agentLabel=activeAgent===1?AGENT1_LABEL:AGENT2_LABEL;
+  const typing=showTyping();
+  try {
+    const replyText=await callAI(messages);
+    const elapsed=Math.round((Date.now()-startMs)/1000);
+    const aiMsg={role:'ai',content:replyText,agent:agentLabel,elapsed,ts:Date.now()};
+    archivedChat.messages.push(aiMsg); archivedChat.updatedAt=Date.now(); saveArchived();
+    typing.remove(); buildMsgEl(aiMsg, replyText); scrollBottom();
+  } catch(err){
+    const errMsg={role:'ai',content:`⚠️ ${err.message||'Something went wrong.'}`,agent:agentLabel,ts:Date.now()};
+    archivedChat.messages.push(errMsg); archivedChat.updatedAt=Date.now(); saveArchived();
+    typing.remove(); buildMsgEl(errMsg); scrollBottom();
+  }
+  aiThinking=false; lockSend(false);
+}
+
 async function doAIReply(messages,chat,isIncognito){
   aiThinking=true; lockSend(true);
   const startMs=Date.now();
@@ -752,9 +713,7 @@ async function doAIReply(messages,chat,isIncognito){
     const aiMsg={role:'ai',content:replyText,agent:agentLabel,elapsed,ts:Date.now()};
     if(isIncognito){ incognitoMessages.push(aiMsg); }
     else { chat.messages.push(aiMsg); chat.updatedAt=Date.now(); saveChats(); renderChatsList(); }
-    typing.remove();
-    buildMsgEl(aiMsg, replyText);
-    scrollBottom();
+    typing.remove(); buildMsgEl(aiMsg, replyText); scrollBottom();
   } catch(err){
     const errMsg={role:'ai',content:`⚠️ ${err.message||'Something went wrong. Please try again.'}`,agent:agentLabel,ts:Date.now()};
     if(!isIncognito&&chat){ chat.messages.push(errMsg); chat.updatedAt=Date.now(); saveChats(); }
@@ -773,9 +732,14 @@ function showTyping(){
 }
 
 async function callAI(messages){
+  // BUG FIX 2: Properly format image for Gemini API (inlineData format)
   const formatted=messages.map(m=>{
     const parts=[];
-    if(m.image){ const b64=m.image.split(',')[1]; const mime=m.image.split(';')[0].split(':')[1]; parts.push({type:'image_url',image_url:{url:`data:${mime};base64,${b64}`}}); }
+    if(m.image){
+      const b64=m.image.split(',')[1];
+      const mime=m.image.split(';')[0].split(':')[1];
+      parts.push({type:'image_url',image_url:{url:`data:${mime};base64,${b64}`}});
+    }
     if(m.fileData?.base64){ parts.push({type:'text',text:`[File attached: ${m.fileData.name} (${m.fileData.mime})]\n${m.fileData.textContent||'[Binary file]'}`}); }
     if(m.content) parts.push({type:'text',text:m.content});
     if(parts.length>1||m.image||m.fileData) return {role:m.role==='ai'?'assistant':'user',content:parts};
@@ -790,9 +754,6 @@ async function callAI(messages){
 
 function lockSend(lock){ document.getElementById('sendBtn').classList.toggle('locked',lock); }
 
-// ════════════════════════════════════════════════
-// INPUT & ATTACHMENTS
-// ════════════════════════════════════════════════
 function onInput(){
   const ta=document.getElementById('msg-input');
   ta.style.height='auto'; ta.style.height=Math.min(ta.scrollHeight,140)+'px'; toggleSend();
@@ -800,7 +761,8 @@ function onInput(){
 function onKeyDown(e){ if(e.key==='Enter'&&!e.shiftKey&&window.innerWidth>600){ e.preventDefault(); sendMessage(); } }
 function toggleSend(){
   const val=document.getElementById('msg-input').value.trim();
-  document.getElementById('sendBtn').classList.toggle('enabled',!!(val||attachments.length));
+  // BUG FIX 2: attachments.length > 0 so image attach enables send button
+  document.getElementById('sendBtn').classList.toggle('enabled',!!(val||attachments.length>0));
 }
 function triggerCamera(){ closePlusMenu(); document.getElementById('camera-input').click(); }
 function triggerImage(){  closePlusMenu(); document.getElementById('image-input').click(); }
@@ -828,9 +790,6 @@ function renderAttachPreviews(){
 function removeAttachment(i){ attachments.splice(i,1); renderAttachPreviews(); toggleSend(); }
 function clearAttachments(){ attachments=[]; renderAttachPreviews(); }
 
-// ════════════════════════════════════════════════
-// AGENT & MENUS
-// ════════════════════════════════════════════════
 function togglePlusMenu(e){
   e.stopPropagation(); const menu=document.getElementById('plusMenu');
   if(menu.classList.contains('show')){ closePlusMenu(); return; }
@@ -887,7 +846,7 @@ function openCtxMenu(e,id,source){
     const pinLabel=chat.pinned?'Unpin':'Pin'; const pinIcon=chat.pinned?'fi fi-rr-thumbtack-slash':'fi fi-rr-thumbtack';
     html+=`<button class="ctx-item" onclick="ctxAction('pin')"><i class="${pinIcon}"></i> ${pinLabel}</button>`;
     html+=`<button class="ctx-item" onclick="ctxAction('archive')"><i class="fi fi-rr-box"></i> Archive</button>`;
-    html+=`<button class="ctx-item" onclick="exportChat('${id}')"><i class="fi fi-rr-file-export"></i> Export PDF</button>`;
+    html+=`<button class="ctx-item" onclick="exportChat('${id}')"><i class="fi fi-br-download"></i> Export PDF</button>`;
   } else {
     html+=`<button class="ctx-item" onclick="ctxAction('unarchive')"><i class="fi fi-rr-arrow-up-from-square"></i> Unarchive</button>`;
     html+=`<button class="ctx-item" onclick="exportChat('${id}')"><i class="fi fi-rr-file-export"></i> Export PDF</button>`;
@@ -913,11 +872,15 @@ function ctxAction(action){
       if(currentChatId===ctxTargetId){ currentChatId=null; viewingArchivedId=null; document.getElementById('messages').innerHTML=''; showWelcome(false); updateHeaderBtns(); updateHeaderMenuContent(); } renderChatsList(); }
   } else if(action==='unarchive'){
     const idx=archived.findIndex(c=>c.id===ctxTargetId);
-    if(idx!==-1){ const[r]=archived.splice(idx,1); delete r.archivedAt; r.updatedAt=Date.now(); chats.unshift(r); saveChats(); saveArchived(); renderArchiveList(); renderChatsList(); }
+    if(idx!==-1){ const[r]=archived.splice(idx,1); delete r.archivedAt; r.updatedAt=Date.now(); chats.unshift(r); saveChats(); saveArchived(); renderArchiveList(); renderChatsList();
+      // If currently viewing this archived chat, now open it as normal chat
+      if(viewingArchivedId===ctxTargetId){ viewingArchivedId=null; currentChatId=r.id; renderMessages(); updateHeaderBtns(); updateHeaderMenuContent(); }
+    }
   } else if(action==='delete'){
     if(!confirm(`Delete "${chat.name}"?`)){ closeAllMenus(); return; }
-    if(ctxSource==='archived'){ archived=archived.filter(c=>c.id!==ctxTargetId); saveArchived(); renderArchiveList(); }
-    else { chats=chats.filter(c=>c.id!==ctxTargetId); saveChats();
+    if(ctxSource==='archived'){ archived=archived.filter(c=>c.id!==ctxTargetId); saveArchived(); renderArchiveList();
+      if(viewingArchivedId===ctxTargetId){ viewingArchivedId=null; document.getElementById('messages').innerHTML=''; showWelcome(false); updateHeaderBtns(); }
+    } else { chats=chats.filter(c=>c.id!==ctxTargetId); saveChats();
       if(currentChatId===ctxTargetId){ currentChatId=null; viewingArchivedId=null; document.getElementById('messages').innerHTML=''; showWelcome(false); updateHeaderBtns(); updateHeaderMenuContent(); } renderChatsList(); }
   }
   closeAllMenus();
@@ -925,7 +888,7 @@ function ctxAction(action){
 
 function updateHeaderBtns(){
   if(incognitoMode) return;
-  const active=!!(currentChatId&&getCurrentChat());
+  const active=!!(currentChatId&&getCurrentChat()) || !!viewingArchivedId;
   document.getElementById('headerNewChatBtn').classList.toggle('visible',active);
   document.getElementById('headerMenuBtn').classList.toggle('visible',active);
   document.querySelectorAll('.header-grp-a').forEach(el=>el.classList.toggle('hidden-btn',active));
@@ -937,14 +900,16 @@ function updateHeaderMenuContent(){
   menu.innerHTML=`<div class="ctx-label">${esc(chat.name)}</div>
     <button class="ctx-item" onclick="headerAction('rename')"><i class="fi fi-rr-pencil"></i> Rename</button>
     <button class="ctx-item" onclick="headerAction('archive')"><i class="fi fi-rr-box"></i> Archive</button>
-    <button class="ctx-item" onclick="exportChat('${chat.id}')"><i class="fi fi-rr-file-export"></i> Export PDF</button>
     <a class="ctx-item" href="report.html" onclick="closeAllMenus()"><i class="fi fi-rr-flag"></i> Report</a>
     <button class="ctx-item danger" onclick="headerAction('delete')"><i class="fi fi-rr-trash"></i> Delete</button>
     <div class="ctx-divider"></div>
     <button class="ctx-item" onclick="newChat()"><i class="fi fi-rr-comment-medical"></i> New Chat</button>`;
 }
 function toggleHeaderMenu(){
-  const menu=document.getElementById('headerCtxMenu'); if(!getCurrentChat()) return;
+  const menu=document.getElementById('headerCtxMenu');
+  // Show for both normal chat and archived view
+  const hasChat=!!(currentChatId&&getCurrentChat());
+  if(!hasChat&&!viewingArchivedId) return;
   if(menu.classList.contains('show')) menu.classList.remove('show');
   else { updateHeaderMenuContent(); closeAllMenus(menu); menu.classList.add('show'); }
 }
@@ -962,27 +927,23 @@ function renderArchiveList(){
 }
 function quickUnarchive(id){ ctxTargetId=id; ctxSource='archived'; ctxAction('unarchive'); }
 
-// FIX 1: openArchivedChat — sets viewingArchivedId so sendMessage knows this is archived
 function openArchivedChat(id){
   const chat=archived.find(c=>c.id===id); if(!chat) return;
   document.getElementById('archivePanel').classList.remove('open');
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('chatsBtn').classList.remove('active'); hideOverlay();
-  // Set state — not in regular chats, but user can send messages (auto-unarchive on send)
   currentChatId=null;
   viewingArchivedId=id;
   document.getElementById('welcomeScreen').classList.add('hidden');
   document.getElementById('messages').innerHTML='';
   (chat.messages||[]).forEach(m=>buildMsgEl(m)); scrollBottom();
-  // Show header buttons — treat like active chat for UI
-  document.getElementById('headerNewChatBtn').classList.add('visible');
-  document.getElementById('headerMenuBtn').classList.add('visible');
-  document.querySelectorAll('.header-grp-a').forEach(el=>el.classList.add('hidden-btn'));
-  // Update header menu for archived chat
+  updateHeaderBtns();
+  // Header menu for archived view
   const menu=document.getElementById('headerCtxMenu');
   menu.innerHTML=`<div class="ctx-label">${esc(chat.name)}</div>
     <button class="ctx-item" onclick="quickUnarchive('${id}');closeAllMenus()"><i class="fi fi-rr-arrow-up-from-square"></i> Unarchive</button>
     <button class="ctx-item" onclick="exportChat('${id}')"><i class="fi fi-rr-file-export"></i> Export PDF</button>
+    <button class="ctx-item danger" onclick="ctxTargetId='${id}';ctxSource='archived';ctxAction('delete')"><i class="fi fi-rr-trash"></i> Delete</button>
     <div class="ctx-divider"></div>
     <button class="ctx-item" onclick="newChat()"><i class="fi fi-rr-comment-medical"></i> New Chat</button>`;
 }
