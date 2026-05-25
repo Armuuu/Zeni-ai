@@ -15,6 +15,12 @@ export default async function handler(req, res) {
   const allowedModels = [AGENT1_MODEL, AGENT2_MODEL];
   const selectedModel = allowedModels.includes(model) ? model : AGENT1_MODEL;
 
+  // Agent 1 → GEMINI_API_KEY, Agent 2 → GEMINI_API_KEY_2
+  const isAgent2 = selectedModel === AGENT2_MODEL;
+  const API_KEY = isAgent2
+    ? process.env.GEMINI_API_KEY_2
+    : process.env.GEMINI_API_KEY;
+
   const currentDate = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
     dateStyle: 'full',
@@ -50,7 +56,6 @@ export default async function handler(req, res) {
   };
 
   try {
-    const API_KEY = process.env.GEMINI_API_KEY;
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${API_KEY}`;
 
     const response = await fetch(url, {
