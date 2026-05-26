@@ -294,7 +294,7 @@
       <i class="fi fi-sr-bulb agent-item-icon"></i>
       <div class="agent-left">
         <div class="agent-name">Agent 1</div>
-        <div class="agent-desc">Gemini 2.5 Flash lite — Fast & general</div>
+        <div class="agent-desc">Gemini 2.5 Flash lite — Fast & General</div>
       </div>
       <i class="fi fi-rr-check agent-tick"></i>
     </button>
@@ -303,7 +303,7 @@
       <i class="fi fi-sr-bolt agent-item-icon"></i>
       <div class="agent-left">
         <div class="agent-name">Agent 2</div>
-        <div class="agent-desc">Gemini 2.5 Flash — Deep reasoning</div>
+        <div class="agent-desc">Gemini 2.5 Flash — Reasoning & Heavy Tasks</div>
       </div>
       <i class="fi fi-rr-check agent-tick"></i>
     </button>
@@ -849,7 +849,6 @@ function openCtxMenu(e,id,source){
     html+=`<button class="ctx-item" onclick="exportChat('${id}')"><i class="fi fi-br-download"></i> Export PDF</button>`;
   } else {
     html+=`<button class="ctx-item" onclick="ctxAction('unarchive')"><i class="fi fi-rr-arrow-up-from-square"></i> Unarchive</button>`;
-    html+=`<button class="ctx-item" onclick="exportChat('${id}')"><i class="fi fi-rr-file-export"></i> Export PDF</button>`;
   }
   html+=`<button class="ctx-item danger" onclick="ctxAction('delete')"><i class="fi fi-rr-trash"></i> Delete</button>`;
   menu.innerHTML=html;
